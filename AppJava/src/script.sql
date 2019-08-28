@@ -1,5 +1,5 @@
 ﻿-- Fecha de creación	: 27 Agosto 2019
--- Última modificación	: 27 Agosto 2019
+-- Última modificación	: 28 Agosto 2019
 -- Autor		: Baldárrago Gastulo, Andrés Leonardo
 
 CREATE TABLE usuario (
@@ -10,8 +10,6 @@ CREATE TABLE usuario (
 	cargo		VARCHAR(30)		NULL,
 	estado		BOOLEAN			NOT NULL
 );
-
-SELECT * FROM usuario;
 
 INSERT INTO usuario VALUES	(1, 'admin', '123456', 'Juan Perez Perez', 'Gerente General', TRUE),
 				(2, 'invitado', 'USAT2019', 'María Mendoza', 'Supervisor', FALSE),
@@ -46,17 +44,24 @@ INSERT INTO categoria VALUES (1, 'Impresora', NULL, TRUE);
 
 INSERT INTO producto VALUES (1, 'EPSON LX890', 'Esta impresora imprime bien chévere sus impresos', 345.89, 15, TRUE, 1, 1);
 
-SELECT * FROM marca;
+ALTER TABLE usuario ADD pregunta VARCHAR(50);
+ALTER TABLE usuario ADD respuesta VARCHAR(50);
 
-SELECT * FROM categoria;
+UPDATE usuario SET pregunta = 'Ciudad de nacimiento', respuesta = 'Lima' WHERE id = 1;
+UPDATE usuario SET pregunta = 'Primer número de celular', respuesta = '976584237' WHERE id = 2;
+UPDATE usuario SET pregunta = 'Nombre de tu mascota', respuesta = 'Otto' WHERE id = 3;
 
-SELECT * FROM producto;
+-- Validar vigencia de usuario
+SELECT estado FROM usuario WHERE usuario.usuario = 'admin' AND usuario.clave = '1234656';
 
-SELECT producto.nombre, producto.descripcion, producto.precio, producto.stock, marca.nombre, categoria.nombre FROM
-	producto INNER JOIN
-	marca ON producto.marca_id = marca.id INNER JOIN
-	categoria ON producto.categoria_id = categoria.id;
+-- Inicio de sesión
+SELECT nombre FROM usuario WHERE usuario.usuario = 'admin' AND clave = '123456' AND estado = TRUE;
 
-UPDATE producto SET precio = 950 WHERE id = 1;
+-- Cambio de contraseña
+UPDATE usuario SET clave = 'nuevaclave' WHERE nombre = 'nombre';
 
-DELETE FROM producto WHERE id = 1;
+-- Mostrar pregunta secreta
+SELECT pregunta FROM usuario WHERE usuario.usuario = 'admin';
+
+-- Validar respuesta secreta
+SELECT * FROM usuario WHERE usuario.usuario = 'admin' AND usuario.respuesta = 'respuesta' AND usuario.estado = TRUE;

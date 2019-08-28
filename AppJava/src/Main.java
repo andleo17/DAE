@@ -1,9 +1,13 @@
 
+import java.awt.Frame;
+
+
 public class Main {
     
    public static void main (String args[]) {
-       JDInicioSesion inicioSesion = new JDInicioSesion(null, true);
-       inicioSesion.setVisible(true);
+       JFPrincipal principal = new JFPrincipal();
+       principal.setExtendedState(Frame.MAXIMIZED_BOTH);
+       principal.setVisible(true);
    }
     
 }
