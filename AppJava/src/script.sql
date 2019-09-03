@@ -1,5 +1,5 @@
 ﻿-- Fecha de creación	: 27 Agosto 2019
--- Última modificación	: 28 Agosto 2019
+-- Última modificación	: 3 setiembre 2019
 -- Autor		: Baldárrago Gastulo, Andrés Leonardo
 
 CREATE TABLE usuario (

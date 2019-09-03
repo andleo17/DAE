@@ -1,3 +1,5 @@
+package appUnidad;
+
 
 public class JFPrincipal extends javax.swing.JFrame {
 

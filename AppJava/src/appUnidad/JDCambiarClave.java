@@ -1,3 +1,5 @@
+package appUnidad;
+
 
 public class JDCambiarClave extends javax.swing.JDialog {
 

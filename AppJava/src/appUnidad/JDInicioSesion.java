@@ -1,5 +1,13 @@
 
+package appUnidad;
+
+import capaNegocio.Usuario;
+import java.awt.Frame;
+import javax.swing.JOptionPane;
+
 public class JDInicioSesion extends javax.swing.JDialog {
+    
+    Usuario usuario;
 
     public JDInicioSesion(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -47,6 +55,11 @@ public class JDInicioSesion extends javax.swing.JDialog {
         btnLogin.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnLogin.setText("Login");
         btnLogin.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/login.png"))); // NOI18N
@@ -116,14 +129,12 @@ public class JDInicioSesion extends javax.swing.JDialog {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jLabel5)
                         .addGap(0, 386, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jTextField1)))
+                    .addComponent(jTextField1))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -165,6 +176,26 @@ public class JDInicioSesion extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        usuario = new Usuario(txtUsuario.getText(), txtClave.getText());
+        try {
+            if (usuario.login()) {
+                if (usuario.isEstado()) {
+                    this.dispose();
+                    JFPrincipal frm = new JFPrincipal();
+                    frm.setExtendedState(Frame.MAXIMIZED_BOTH);
+                    frm.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Usuario caducado");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Usuario y/o contraseña incorrectos");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
