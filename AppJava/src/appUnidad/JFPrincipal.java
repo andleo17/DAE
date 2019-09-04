@@ -1,10 +1,26 @@
 package appUnidad;
 
+import capaNegocio.Usuario;
+
 
 public class JFPrincipal extends javax.swing.JFrame {
 
+    Usuario usuario;
+    
     public JFPrincipal() {
         initComponents();
+        usuarioContenedor.setVisible(false);
+        mnuMantenimiento.setVisible(false);
+        mnuReportes.setVisible(false);
+        mnuVentas.setVisible(false);
+        mnuCerrarSesion.setVisible(false);
+        mnuCambiarClave.setVisible(false);
+        btnCambiarUsuario.setVisible(false);
+        btnCerrarSesion.setVisible(false);
+        btnClientes.setVisible(false);
+        btnPagar.setVisible(false);
+        btnProductos.setVisible(false);
+        btnVentas.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -12,19 +28,19 @@ public class JFPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jToolBar1 = new javax.swing.JToolBar();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnIniciarSesion = new javax.swing.JButton();
+        btnCambiarUsuario = new javax.swing.JButton();
+        btnCerrarSesion = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        btnProductos = new javax.swing.JButton();
+        btnVentas = new javax.swing.JButton();
+        btnClientes = new javax.swing.JButton();
+        btnPagar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        usuarioContenedor = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblUsuario = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -35,20 +51,20 @@ public class JFPrincipal extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        mnuLogin = new javax.swing.JMenu();
+        mnuIniciarSesion = new javax.swing.JMenuItem();
+        mnuCerrarSesion = new javax.swing.JMenuItem();
+        mnuCambiarClave = new javax.swing.JMenuItem();
+        mnuMantenimiento = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        mnuVentas = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        mnuReportes = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
@@ -58,96 +74,101 @@ public class JFPrincipal extends javax.swing.JFrame {
 
         jToolBar1.setRollover(true);
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/iniciar-sesion.png"))); // NOI18N
-        jButton1.setText("Iniciar Sesión");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton1);
+        btnIniciarSesion.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnIniciarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/iniciar-sesion.png"))); // NOI18N
+        btnIniciarSesion.setText("Iniciar Sesión");
+        btnIniciarSesion.setFocusable(false);
+        btnIniciarSesion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnIniciarSesion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIniciarSesionActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnIniciarSesion);
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/cambiar-sesion.png"))); // NOI18N
-        jButton2.setText("Cambiar Usuario");
-        jButton2.setFocusable(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton2);
+        btnCambiarUsuario.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnCambiarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/cambiar-sesion.png"))); // NOI18N
+        btnCambiarUsuario.setText("Cambiar Usuario");
+        btnCambiarUsuario.setFocusable(false);
+        btnCambiarUsuario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCambiarUsuario.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(btnCambiarUsuario);
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/cerrar-sesion.png"))); // NOI18N
-        jButton3.setText("Cerrar Sesión");
-        jButton3.setFocusable(false);
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton3);
+        btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/cerrar-sesion.png"))); // NOI18N
+        btnCerrarSesion.setText("Cerrar Sesión");
+        btnCerrarSesion.setFocusable(false);
+        btnCerrarSesion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCerrarSesion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(btnCerrarSesion);
         jToolBar1.add(jSeparator3);
 
-        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/consultar.png"))); // NOI18N
-        jButton4.setText("Productos");
-        jButton4.setFocusable(false);
-        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton4.setMinimumSize(new java.awt.Dimension(70, 75));
-        jButton4.setPreferredSize(new java.awt.Dimension(70, 75));
-        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton4);
+        btnProductos.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/consultar.png"))); // NOI18N
+        btnProductos.setText("Productos");
+        btnProductos.setFocusable(false);
+        btnProductos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnProductos.setMinimumSize(new java.awt.Dimension(70, 75));
+        btnProductos.setPreferredSize(new java.awt.Dimension(70, 75));
+        btnProductos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(btnProductos);
 
-        jButton5.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/ventas.png"))); // NOI18N
-        jButton5.setText("Venta");
-        jButton5.setFocusable(false);
-        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton5.setMinimumSize(new java.awt.Dimension(70, 75));
-        jButton5.setPreferredSize(new java.awt.Dimension(70, 75));
-        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton5);
+        btnVentas.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/ventas.png"))); // NOI18N
+        btnVentas.setText("Venta");
+        btnVentas.setFocusable(false);
+        btnVentas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnVentas.setMinimumSize(new java.awt.Dimension(70, 75));
+        btnVentas.setPreferredSize(new java.awt.Dimension(70, 75));
+        btnVentas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(btnVentas);
 
-        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/clientes.png"))); // NOI18N
-        jButton6.setText("Clientes");
-        jButton6.setFocusable(false);
-        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton6.setPreferredSize(new java.awt.Dimension(70, 75));
-        jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton6);
+        btnClientes.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/clientes.png"))); // NOI18N
+        btnClientes.setText("Clientes");
+        btnClientes.setFocusable(false);
+        btnClientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnClientes.setPreferredSize(new java.awt.Dimension(70, 75));
+        btnClientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(btnClientes);
 
-        jButton7.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/pagar.png"))); // NOI18N
-        jButton7.setText("Pagar");
-        jButton7.setFocusable(false);
-        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton7.setPreferredSize(new java.awt.Dimension(70, 75));
-        jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton7);
+        btnPagar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnPagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/pagar.png"))); // NOI18N
+        btnPagar.setText("Pagar");
+        btnPagar.setFocusable(false);
+        btnPagar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPagar.setPreferredSize(new java.awt.Dimension(70, 75));
+        btnPagar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(btnPagar);
         jToolBar1.add(jSeparator1);
 
-        jPanel2.setOpaque(false);
+        usuarioContenedor.setOpaque(false);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/sesion-peque.png"))); // NOI18N
         jLabel1.setText("Usuario:");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jLabel2.setText("Usuario");
+        lblUsuario.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        lblUsuario.setText("Usuario");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout usuarioContenedorLayout = new javax.swing.GroupLayout(usuarioContenedor);
+        usuarioContenedor.setLayout(usuarioContenedorLayout);
+        usuarioContenedorLayout.setHorizontalGroup(
+            usuarioContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, usuarioContenedorLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2))
+                .addComponent(lblUsuario))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        usuarioContenedorLayout.setVerticalGroup(
+            usuarioContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(usuarioContenedorLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(usuarioContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(lblUsuario))
                 .addGap(0, 0, 0))
         );
 
@@ -219,7 +240,7 @@ public class JFPrincipal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(usuarioContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -235,7 +256,7 @@ public class JFPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(usuarioContenedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator2))
                 .addContainerGap())
         );
@@ -256,60 +277,65 @@ public class JFPrincipal extends javax.swing.JFrame {
             .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("Login");
+        mnuLogin.setText("Login");
 
-        jMenuItem1.setText("Inicio Sesión");
-        jMenu1.add(jMenuItem1);
+        mnuIniciarSesion.setText("Inicio Sesión");
+        mnuLogin.add(mnuIniciarSesion);
 
-        jMenuItem2.setText("Cerrar Sesión");
-        jMenu1.add(jMenuItem2);
+        mnuCerrarSesion.setText("Cerrar Sesión");
+        mnuLogin.add(mnuCerrarSesion);
 
-        jMenuItem3.setText("Cambiar Contraseña");
-        jMenu1.add(jMenuItem3);
+        mnuCambiarClave.setText("Cambiar Contraseña");
+        mnuCambiarClave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCambiarClaveActionPerformed(evt);
+            }
+        });
+        mnuLogin.add(mnuCambiarClave);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(mnuLogin);
 
-        jMenu2.setText("Mantenimiento");
+        mnuMantenimiento.setText("Mantenimiento");
 
         jMenuItem4.setText("Usuarios");
-        jMenu2.add(jMenuItem4);
+        mnuMantenimiento.add(jMenuItem4);
 
         jMenuItem5.setText("Marcas");
-        jMenu2.add(jMenuItem5);
+        mnuMantenimiento.add(jMenuItem5);
 
         jMenuItem6.setText("Categorías");
-        jMenu2.add(jMenuItem6);
+        mnuMantenimiento.add(jMenuItem6);
 
         jMenuItem7.setText("Productos");
-        jMenu2.add(jMenuItem7);
+        mnuMantenimiento.add(jMenuItem7);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(mnuMantenimiento);
 
-        jMenu3.setText("Ventas");
+        mnuVentas.setText("Ventas");
 
         jMenuItem8.setText("Clientes");
-        jMenu3.add(jMenuItem8);
+        mnuVentas.add(jMenuItem8);
 
         jMenuItem9.setText("Venta");
-        jMenu3.add(jMenuItem9);
+        mnuVentas.add(jMenuItem9);
 
         jMenuItem10.setText("Pago");
-        jMenu3.add(jMenuItem10);
+        mnuVentas.add(jMenuItem10);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(mnuVentas);
 
-        jMenu4.setText("Reportes");
+        mnuReportes.setText("Reportes");
 
         jMenuItem11.setText("Ventas diarias");
-        jMenu4.add(jMenuItem11);
+        mnuReportes.add(jMenuItem11);
 
         jMenuItem12.setText("Ingresos");
-        jMenu4.add(jMenuItem12);
+        mnuReportes.add(jMenuItem12);
 
         jMenuItem13.setText("Productos");
-        jMenu4.add(jMenuItem13);
+        mnuReportes.add(jMenuItem13);
 
-        jMenuBar1.add(jMenu4);
+        jMenuBar1.add(mnuReportes);
 
         setJMenuBar(jMenuBar1);
 
@@ -336,33 +362,55 @@ public class JFPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
+        JDInicioSesion frmInicioSesion = new JDInicioSesion(this, true);
+        frmInicioSesion.setLocationRelativeTo(this);
+        frmInicioSesion.setVisible(true);
+        if (frmInicioSesion.usuario.getNombre() != null) {
+            this.usuario = frmInicioSesion.usuario;
+            usuarioContenedor.setVisible(true);
+            lblUsuario.setText(this.usuario.getNombre());
+            btnIniciarSesion.setVisible(false);
+            mnuMantenimiento.setVisible(true);
+            mnuReportes.setVisible(true);
+            mnuVentas.setVisible(true);
+            mnuCerrarSesion.setVisible(true);
+            mnuCambiarClave.setVisible(true);
+            btnCambiarUsuario.setVisible(true);
+            btnCerrarSesion.setVisible(true);
+            btnClientes.setVisible(true);
+            btnPagar.setVisible(true);
+            btnProductos.setVisible(true);
+            btnVentas.setVisible(true);
+            mnuIniciarSesion.setVisible(false);
+        }
+    }//GEN-LAST:event_btnIniciarSesionActionPerformed
+
+    private void mnuCambiarClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCambiarClaveActionPerformed
+        JDCambiarClave frmCambiarClave = new JDCambiarClave(this, true, usuario);
+        frmCambiarClave.setLocationRelativeTo(this);
+        frmCambiarClave.setVisible(true);
+    }//GEN-LAST:event_mnuCambiarClaveActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
+    private javax.swing.JButton btnCambiarUsuario;
+    private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnClientes;
+    private javax.swing.JButton btnIniciarSesion;
+    private javax.swing.JButton btnPagar;
+    private javax.swing.JButton btnProductos;
+    private javax.swing.JButton btnVentas;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
@@ -370,7 +418,6 @@ public class JFPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -378,5 +425,14 @@ public class JFPrincipal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel lblUsuario;
+    private javax.swing.JMenuItem mnuCambiarClave;
+    private javax.swing.JMenuItem mnuCerrarSesion;
+    private javax.swing.JMenuItem mnuIniciarSesion;
+    private javax.swing.JMenu mnuLogin;
+    private javax.swing.JMenu mnuMantenimiento;
+    private javax.swing.JMenu mnuReportes;
+    private javax.swing.JMenu mnuVentas;
+    private javax.swing.JPanel usuarioContenedor;
     // End of variables declaration//GEN-END:variables
 }

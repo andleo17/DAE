@@ -25,7 +25,18 @@ public class DBConnection {
         try {
             connection.close();
         } catch (SQLException e) {
-            throw new Exception("Erro al desconectar a la base de datos");
+            throw new Exception("Error al desconectar a la base de datos");
+        }
+    }
+    
+    public void ejecutarBD(String query) throws Exception {
+        try {
+            conectarBD();
+            connection.createStatement().executeUpdate(query);
+        } catch (Exception e) {
+            throw new Exception("Error al ejecutar la consulta");
+        } finally {
+            if (connection != null) desconectarBD();
         }
     }
     

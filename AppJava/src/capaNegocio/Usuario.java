@@ -14,12 +14,9 @@ public class Usuario {
     private String cargo;
     private boolean estado;
     
-    public Usuario(String usuario, String clave) {
+    public boolean login(String usuario, String clave) throws Exception{
         this.usuario = usuario;
         this.clave = clave;
-    }
-    
-    public boolean login() throws Exception{
         try {
             String query = String.format("SELECT nombre, estado FROM usuario WHERE usuario.usuario = '%s' AND clave = '%s';", this.usuario, this.clave);
             ResultSet rs = connection.consultarBD(query);
@@ -31,7 +28,46 @@ public class Usuario {
                 return false;
             }
         } catch (Exception e) {
-            throw new Exception("Usuario y/o contraseña incorrectos");
+            throw e;
+        }
+    }
+    
+    public String obtenerPreguntaSecreta() throws Exception {
+        try {
+            String query = "SELECT pregunta FROM usuario WHERE usuario.usuario = '" + this.usuario + "';";
+            ResultSet rs = connection.consultarBD(query);
+            if (rs.next()) {
+                return rs.getString("pregunta");
+            } else {
+                return "";
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al consultar pregunta secreta");
+        }
+    }
+    
+    public String validarPreguntaSecreta(String respuesta) throws Exception {
+        try {
+            String query = "SELECT * FROM usuario WHERE usuario.usuario = '" + this.usuario + "' AND respuesta = '" + respuesta + "';";
+            ResultSet rs = connection.consultarBD(query);
+            if (rs.next()) {
+                this.nombre = rs.getString("nombre");
+                this.estado = rs.getBoolean("estado");
+                return this.nombre;
+            } else {
+                return "";
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al consultar respuesta secreta");
+        }
+    }
+    
+    public void cambiarClave(String clave) throws Exception {
+        try {
+            String query = "UPDATE usuario SET clave = '" + clave + "' WHERE usuario.usuario = '" + this.usuario + "' AND clave = '" + this.clave + "';";
+            connection.ejecutarBD(query);
+        } catch (Exception e) {
+            throw e;
         }
     }
 

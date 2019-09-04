@@ -3,8 +3,8 @@ package appUnidad;
 public class Main {
     
    public static void main (String args[]) {
-       JDInicioSesion frm = new JDInicioSesion(null, true);
-       frm.setLocationRelativeTo(null);
+       JFPrincipal frm = new JFPrincipal();
+       frm.setExtendedState(frm.MAXIMIZED_BOTH);
        frm.setVisible(true);
    }
     
