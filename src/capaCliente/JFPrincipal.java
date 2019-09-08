@@ -1,7 +1,11 @@
-package appUnidad;
+package capaCliente;
 
 import capaNegocio.Usuario;
-
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class JFPrincipal extends javax.swing.JFrame {
 
@@ -10,17 +14,8 @@ public class JFPrincipal extends javax.swing.JFrame {
     public JFPrincipal() {
         initComponents();
         usuarioContenedor.setVisible(false);
-        mnuMantenimiento.setVisible(false);
-        mnuReportes.setVisible(false);
-        mnuVentas.setVisible(false);
-        mnuCerrarSesion.setVisible(false);
-        mnuCambiarClave.setVisible(false);
-        btnCambiarUsuario.setVisible(false);
-        btnCerrarSesion.setVisible(false);
-        btnClientes.setVisible(false);
-        btnPagar.setVisible(false);
-        btnProductos.setVisible(false);
-        btnVentas.setVisible(false);
+        infoSesion.setVisible(false);
+        new Reloj();
     }
 
     @SuppressWarnings("unchecked")
@@ -43,11 +38,15 @@ public class JFPrincipal extends javax.swing.JFrame {
         lblUsuario = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblHora = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
+        lblFecha = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
+        infoSesion = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        lblNumeroSesiones = new javax.swing.JLabel();
+        lblSesion = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -71,6 +70,11 @@ public class JFPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de comercialización");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jToolBar1.setRollover(true);
 
@@ -80,11 +84,6 @@ public class JFPrincipal extends javax.swing.JFrame {
         btnIniciarSesion.setFocusable(false);
         btnIniciarSesion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnIniciarSesion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIniciarSesionActionPerformed(evt);
-            }
-        });
         jToolBar1.add(btnIniciarSesion);
 
         btnCambiarUsuario.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -178,8 +177,8 @@ public class JFPrincipal extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/hora.png"))); // NOI18N
         jLabel3.setText("Hora:");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jLabel4.setText("12:59:59 p.m.");
+        lblHora.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        lblHora.setText("12:59:59 p.m.");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -189,7 +188,7 @@ public class JFPrincipal extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
+                .addComponent(lblHora)
                 .addGap(0, 0, 0))
         );
         jPanel3Layout.setVerticalGroup(
@@ -198,14 +197,14 @@ public class JFPrincipal extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                    .addComponent(lblHora))
                 .addGap(0, 0, 0))
         );
 
         jPanel4.setOpaque(false);
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jLabel6.setText("31/12/9999");
+        lblFecha.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        lblFecha.setText("31/12/9999");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/fecha.png"))); // NOI18N
@@ -219,7 +218,7 @@ public class JFPrincipal extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
+                .addComponent(lblFecha)
                 .addGap(0, 0, 0))
         );
         jPanel4Layout.setVerticalGroup(
@@ -228,11 +227,39 @@ public class JFPrincipal extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel6))
+                    .addComponent(lblFecha))
                 .addGap(0, 0, 0))
         );
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setText("N° Sesiones hasta la fecha:");
+
+        lblNumeroSesiones.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        lblNumeroSesiones.setText("0");
+
+        lblSesion.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        lblSesion.setText("Sesión");
+
+        javax.swing.GroupLayout infoSesionLayout = new javax.swing.GroupLayout(infoSesion);
+        infoSesion.setLayout(infoSesionLayout);
+        infoSesionLayout.setHorizontalGroup(
+            infoSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(infoSesionLayout.createSequentialGroup()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblNumeroSesiones)
+                .addGap(18, 18, 18)
+                .addComponent(lblSesion)
+                .addGap(0, 256, Short.MAX_VALUE))
+        );
+        infoSesionLayout.setVerticalGroup(
+            infoSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblNumeroSesiones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -241,7 +268,9 @@ public class JFPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(usuarioContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(infoSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -257,7 +286,8 @@ public class JFPrincipal extends javax.swing.JFrame {
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(usuarioContenedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSeparator2))
+                    .addComponent(jSeparator2)
+                    .addComponent(infoSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -270,11 +300,11 @@ public class JFPrincipal extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 941, Short.MAX_VALUE)
+            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
+            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
         );
 
         mnuLogin.setText("Login");
@@ -362,36 +392,62 @@ public class JFPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        JDInicioSesion frmInicioSesion = new JDInicioSesion(this, true);
-        frmInicioSesion.setLocationRelativeTo(this);
-        frmInicioSesion.setVisible(true);
-        if (frmInicioSesion.usuario.getNombre() != null) {
-            this.usuario = frmInicioSesion.usuario;
-            usuarioContenedor.setVisible(true);
-            lblUsuario.setText(this.usuario.getNombre());
-            btnIniciarSesion.setVisible(false);
-            mnuMantenimiento.setVisible(true);
-            mnuReportes.setVisible(true);
-            mnuVentas.setVisible(true);
-            mnuCerrarSesion.setVisible(true);
-            mnuCambiarClave.setVisible(true);
-            btnCambiarUsuario.setVisible(true);
-            btnCerrarSesion.setVisible(true);
-            btnClientes.setVisible(true);
-            btnPagar.setVisible(true);
-            btnProductos.setVisible(true);
-            btnVentas.setVisible(true);
-            mnuIniciarSesion.setVisible(false);
-        }
-    }//GEN-LAST:event_btnIniciarSesionActionPerformed
-
     private void mnuCambiarClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCambiarClaveActionPerformed
         JDCambiarClave frmCambiarClave = new JDCambiarClave(this, true, usuario);
         frmCambiarClave.setLocationRelativeTo(this);
         frmCambiarClave.setVisible(true);
     }//GEN-LAST:event_mnuCambiarClaveActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        JDInicioSesion frmInicioSesion = new JDInicioSesion(this, true);
+        frmInicioSesion.setLocationRelativeTo(this);
+        frmInicioSesion.setVisible(true);
+        if (frmInicioSesion.usuario.getUsuario() != null) {
+            this.usuario = frmInicioSesion.usuario;
+            alternarInicioSesion();
+        }
+    }//GEN-LAST:event_formWindowOpened
+
+    private class Reloj implements Runnable {
+        DateFormat hora = new SimpleDateFormat("hh:mm:ss a");
+        DateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
+        Thread hilo;
+        
+        public Reloj() {
+            hilo = new Thread(this);
+            hilo.start();
+        }
+
+        @Override
+        public void run() {
+            Thread hiloActual = Thread.currentThread();
+            while (hiloActual == hilo) {
+                try {
+                    Date tiempo = new Date();
+                    lblFecha.setText(fecha.format(tiempo));
+                    lblHora.setText(hora.format(tiempo));
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
+    }
+    
+    private void alternarInicioSesion() {
+        try {
+            lblUsuario.setText(this.usuario.getNombre());
+            lblNumeroSesiones.setText(String.valueOf(usuario.obtenerCantidadSesiones()));
+            lblSesion.setText(usuario.obtenerSesion());
+            infoSesion.setVisible(!infoSesion.isVisible());
+            usuarioContenedor.setVisible(!usuarioContenedor.isVisible());
+            btnIniciarSesion.setVisible(!btnIniciarSesion.isVisible());
+            mnuIniciarSesion.setVisible(!mnuIniciarSesion.isVisible());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCambiarUsuario;
     private javax.swing.JButton btnCerrarSesion;
@@ -400,11 +456,11 @@ public class JFPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnPagar;
     private javax.swing.JButton btnProductos;
     private javax.swing.JButton btnVentas;
+    private javax.swing.JPanel infoSesion;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem10;
@@ -425,6 +481,10 @@ public class JFPrincipal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel lblFecha;
+    private javax.swing.JLabel lblHora;
+    private javax.swing.JLabel lblNumeroSesiones;
+    private javax.swing.JLabel lblSesion;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JMenuItem mnuCambiarClave;
     private javax.swing.JMenuItem mnuCerrarSesion;

@@ -1,4 +1,4 @@
-package appUnidad;
+package capaCliente;
 
 import capaNegocio.Usuario;
 import java.util.Arrays;

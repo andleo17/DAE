@@ -1,17 +1,17 @@
 
-package appUnidad;
+package capaCliente;
 
 import capaNegocio.Usuario;
-import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 public class JDInicioSesion extends javax.swing.JDialog {
     
-    Usuario usuario = new Usuario();
+    Usuario usuario;
     private byte numeroIntentos = 0;
 
     public JDInicioSesion(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        usuario = new Usuario();
         initComponents();
     }
 
@@ -27,6 +27,7 @@ public class JDInicioSesion extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
         txtClave = new javax.swing.JPasswordField();
+        lblUltimaSesion = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblPregunta = new javax.swing.JLabel();
         txtRespuesta = new javax.swing.JTextField();
@@ -35,11 +36,21 @@ public class JDInicioSesion extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Iniciar Sesión");
         setBackground(new java.awt.Color(255, 255, 255));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
         txtUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtUsuario.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        txtUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtUsuarioFocusLost(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -75,10 +86,24 @@ public class JDInicioSesion extends javax.swing.JDialog {
         txtClave.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtClave.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
+        lblUltimaSesion.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        lblUltimaSesion.setForeground(new java.awt.Color(255, 255, 255));
+        lblUltimaSesion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -86,19 +111,12 @@ public class JDInicioSesion extends javax.swing.JDialog {
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(25, 25, 25)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblUltimaSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(10, 10, 10))
         );
         jPanel1Layout.setVerticalGroup(
@@ -118,7 +136,9 @@ public class JDInicioSesion extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(lblUltimaSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         lblPregunta.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -202,7 +222,7 @@ public class JDInicioSesion extends javax.swing.JDialog {
                 txtClave.requestFocus();
                 if (++numeroIntentos == 3) {
                     JOptionPane.showMessageDialog(this, "Superó el número de intentos permitidos, por favor conteste su pregunta secreta");
-                    lblPregunta.setText(usuario.obtenerPreguntaSecreta());
+                    lblPregunta.setText(usuario.obtenerPreguntaSecreta(txtUsuario.getText()));
                     txtRespuesta.requestFocus();
                 }
             }
@@ -213,8 +233,7 @@ public class JDInicioSesion extends javax.swing.JDialog {
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
         try {
-            String respuesta = usuario.validarPreguntaSecreta(txtRespuesta.getText());
-            if (!respuesta.isEmpty()) {
+            if (usuario.validarPreguntaSecreta(txtUsuario.getText(), txtRespuesta.getText())) {
                 JOptionPane.showMessageDialog(this, "Inicio de sesión correcto");
                 this.dispose();
             } else {
@@ -230,6 +249,18 @@ public class JDInicioSesion extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if (usuario.getUsuario() == null) System.exit(0);
+    }//GEN-LAST:event_formWindowClosing
+
+    private void txtUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioFocusLost
+        try {
+            lblUltimaSesion.setText(usuario.obtenerUltimaSesion(txtUsuario.getText()));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_txtUsuarioFocusLost
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEnviar;
@@ -240,6 +271,7 @@ public class JDInicioSesion extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblPregunta;
+    private javax.swing.JLabel lblUltimaSesion;
     private javax.swing.JPasswordField txtClave;
     private javax.swing.JTextField txtRespuesta;
     private javax.swing.JTextField txtUsuario;
