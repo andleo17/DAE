@@ -4,8 +4,6 @@ import capaNegocio.Usuario;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class JFPrincipal extends javax.swing.JFrame {
 
@@ -100,6 +98,11 @@ public class JFPrincipal extends javax.swing.JFrame {
         btnCerrarSesion.setFocusable(false);
         btnCerrarSesion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCerrarSesion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesionActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btnCerrarSesion);
         jToolBar1.add(jSeparator3);
 
@@ -158,7 +161,7 @@ public class JFPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, usuarioContenedorLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblUsuario))
         );
         usuarioContenedorLayout.setVerticalGroup(
@@ -270,7 +273,7 @@ public class JFPrincipal extends javax.swing.JFrame {
                 .addComponent(usuarioContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(infoSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -313,6 +316,11 @@ public class JFPrincipal extends javax.swing.JFrame {
         mnuLogin.add(mnuIniciarSesion);
 
         mnuCerrarSesion.setText("Cerrar Sesión");
+        mnuCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCerrarSesionActionPerformed(evt);
+            }
+        });
         mnuLogin.add(mnuCerrarSesion);
 
         mnuCambiarClave.setText("Cambiar Contraseña");
@@ -399,14 +407,16 @@ public class JFPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuCambiarClaveActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        JDInicioSesion frmInicioSesion = new JDInicioSesion(this, true);
-        frmInicioSesion.setLocationRelativeTo(this);
-        frmInicioSesion.setVisible(true);
-        if (frmInicioSesion.usuario.getUsuario() != null) {
-            this.usuario = frmInicioSesion.usuario;
-            alternarInicioSesion();
-        }
+        abrirIniciarSesion();
     }//GEN-LAST:event_formWindowOpened
+
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        cerrarSesion();
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
+
+    private void mnuCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCerrarSesionActionPerformed
+        cerrarSesion();
+    }//GEN-LAST:event_mnuCerrarSesionActionPerformed
 
     private class Reloj implements Runnable {
         DateFormat hora = new SimpleDateFormat("hh:mm:ss a");
@@ -434,11 +444,31 @@ public class JFPrincipal extends javax.swing.JFrame {
         }
     }
     
+    private void cerrarSesion() {
+        usuario = new Usuario();
+        alternarInicioSesion();
+        abrirIniciarSesion();
+    }
+    
+    private void abrirIniciarSesion() {
+        JDInicioSesion frmInicioSesion = new JDInicioSesion(this, true);
+        frmInicioSesion.setLocationRelativeTo(this);
+        frmInicioSesion.setVisible(true);
+        if (frmInicioSesion.usuario.getUsuario() != null) {
+            try {
+                this.usuario = frmInicioSesion.usuario;
+                lblNumeroSesiones.setText(String.valueOf(usuario.obtenerCantidadSesiones()));
+                lblSesion.setText(usuario.obtenerSesion());
+                alternarInicioSesion();
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
+        }
+    }
+    
     private void alternarInicioSesion() {
         try {
             lblUsuario.setText(this.usuario.getNombre());
-            lblNumeroSesiones.setText(String.valueOf(usuario.obtenerCantidadSesiones()));
-            lblSesion.setText(usuario.obtenerSesion());
             infoSesion.setVisible(!infoSesion.isVisible());
             usuarioContenedor.setVisible(!usuarioContenedor.isVisible());
             btnIniciarSesion.setVisible(!btnIniciarSesion.isVisible());

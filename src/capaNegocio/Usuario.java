@@ -93,14 +93,20 @@ public class Usuario {
     
     public String obtenerUltimaSesion(String usuario) throws Exception {
         try {
-            String query = "SELECT fecha, hora FROM movimiento WHERE id_usuario = (SELECT id FROM usuario WHERE usuario.usuario = '" + usuario + "') AND estado = TRUE;";
-            ResultSet rs = connection.consultarBD(query);
-            if (rs.next()) {
-                String fecha = new SimpleDateFormat("dd/MM/yyyy").format(rs.getDate("fecha"));
-                String hora = new SimpleDateFormat("hh:mm:ss a").format(rs.getTime("hora"));
-                return "Última sesión: " + fecha + " - " + hora;
+            String q = "SELECT id FROM usuario WHERE usuario.usuario = '" + usuario + "';";
+            ResultSet r = connection.consultarBD(q);
+            if (r.next()) {
+                String query = "SELECT fecha, hora FROM movimiento WHERE id_usuario = (SELECT id FROM usuario WHERE usuario.usuario = '" + usuario + "') AND estado = TRUE;";
+                ResultSet rs = connection.consultarBD(query);
+                if (rs.next()) {
+                    String fecha = new SimpleDateFormat("dd/MM/yyyy").format(rs.getDate("fecha"));
+                    String hora = new SimpleDateFormat("hh:mm:ss a").format(rs.getTime("hora"));
+                    return "Última sesión: " + fecha + " - " + hora;
+                } else {
+                    return "Primera vez iniciando sesión";
+                }
             } else {
-                return "Primera vez iniciando sesión";
+                return "";
             }
         } catch (Exception e) {
             throw e;

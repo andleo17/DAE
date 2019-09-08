@@ -233,13 +233,11 @@ public class JDInicioSesion extends javax.swing.JDialog {
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
         try {
-            if (usuario.validarPreguntaSecreta(txtUsuario.getText(), txtRespuesta.getText())) {
+            if (usuario.validarPreguntaSecreta(txtUsuario.getText(), txtRespuesta.getText())) 
                 JOptionPane.showMessageDialog(this, "Inicio de sesión correcto");
-                this.dispose();
-            } else {
+             else 
                 JOptionPane.showMessageDialog(this, "Respuesta incorrecta");
-                this.dispose();
-            }
+            this.dispose();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
