@@ -1,5 +1,5 @@
 ﻿-- Fecha de creación	: 27 Agosto 2019
--- Última modificación	: 07 Septiembre 2019
+-- Última modificación	: 10 Septiembre 2019
 -- Autor		: Baldárrago Gastulo, Andrés Leonardo
 
 CREATE TABLE usuario (
@@ -15,7 +15,8 @@ CREATE TABLE usuario (
 
 CREATE TABLE marca(
 	id		INT			PRIMARY KEY,
-	nombre		VARCHAR(30)		NOT NULL
+	nombre		VARCHAR(30)		NOT NULL,
+        vigencia        BOOLEAN                 NOT NULL
 );
 
 CREATE TABLE categoria(
@@ -91,3 +92,7 @@ $$
 LANGUAGE 'plpgsql';
 
 CREATE TRIGGER tg_cambiarEstadoMovimiento AFTER INSERT ON movimiento FOR EACH ROW EXECUTE PROCEDURE fn_tg_cambiarEstadoMovimiento();
+
+-- Mantenimiento de base de datos
+ALTER TABLE marca ADD vigencia BOOLEAN NULL;
+UPDATE marca SET vigencia = TRUE;

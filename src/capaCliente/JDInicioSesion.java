@@ -2,6 +2,7 @@
 package capaCliente;
 
 import capaNegocio.Usuario;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 public class JDInicioSesion extends javax.swing.JDialog {
@@ -85,6 +86,11 @@ public class JDInicioSesion extends javax.swing.JDialog {
 
         txtClave.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtClave.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        txtClave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtClaveKeyTyped(evt);
+            }
+        });
 
         lblUltimaSesion.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblUltimaSesion.setForeground(new java.awt.Color(255, 255, 255));
@@ -258,6 +264,12 @@ public class JDInicioSesion extends javax.swing.JDialog {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_txtUsuarioFocusLost
+
+    private void txtClaveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyTyped
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            btnLogin.doClick();
+        }
+    }//GEN-LAST:event_txtClaveKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;

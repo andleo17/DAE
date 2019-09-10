@@ -54,7 +54,7 @@ public class JFPrincipal extends javax.swing.JFrame {
         mnuCambiarClave = new javax.swing.JMenuItem();
         mnuMantenimiento = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        mnuMantenimientoMarca = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         mnuVentas = new javax.swing.JMenu();
@@ -338,8 +338,13 @@ public class JFPrincipal extends javax.swing.JFrame {
         jMenuItem4.setText("Usuarios");
         mnuMantenimiento.add(jMenuItem4);
 
-        jMenuItem5.setText("Marcas");
-        mnuMantenimiento.add(jMenuItem5);
+        mnuMantenimientoMarca.setText("Marcas");
+        mnuMantenimientoMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuMantenimientoMarcaActionPerformed(evt);
+            }
+        });
+        mnuMantenimiento.add(mnuMantenimientoMarca);
 
         jMenuItem6.setText("Categorías");
         mnuMantenimiento.add(jMenuItem6);
@@ -417,6 +422,12 @@ public class JFPrincipal extends javax.swing.JFrame {
     private void mnuCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCerrarSesionActionPerformed
         cerrarSesion();
     }//GEN-LAST:event_mnuCerrarSesionActionPerformed
+
+    private void mnuMantenimientoMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMantenimientoMarcaActionPerformed
+        JDMantenimientoMarca frm = new JDMantenimientoMarca(this, true);
+        frm.setLocationRelativeTo(this);
+        frm.setVisible(true);
+    }//GEN-LAST:event_mnuMantenimientoMarcaActionPerformed
 
     private class Reloj implements Runnable {
         DateFormat hora = new SimpleDateFormat("hh:mm:ss a");
@@ -498,7 +509,6 @@ public class JFPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
@@ -521,6 +531,7 @@ public class JFPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuIniciarSesion;
     private javax.swing.JMenu mnuLogin;
     private javax.swing.JMenu mnuMantenimiento;
+    private javax.swing.JMenuItem mnuMantenimientoMarca;
     private javax.swing.JMenu mnuReportes;
     private javax.swing.JMenu mnuVentas;
     private javax.swing.JPanel usuarioContenedor;
