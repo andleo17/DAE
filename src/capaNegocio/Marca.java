@@ -4,12 +4,10 @@ package capaNegocio;
 import capaDatos.DBConnection;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Marca {
     
-    private static DBConnection connection = new DBConnection();
+    private static final DBConnection connection = new DBConnection();
     private int id;
     private String nombre;
     private boolean vigente;
@@ -70,9 +68,17 @@ public class Marca {
         }
     }
     
+    public static void darBaja(int codigo) throws Exception {
+        try {
+            String query = "UPDATE marca SET vigencia = FALSE WHERE id = " + codigo;
+            connection.ejecutarBD(query);
+        } catch (Exception e) {
+        }
+    }
+    
     public static ArrayList<Marca> listarTodo() throws Exception {
         ArrayList<Marca> marcas = new ArrayList();
-        String query = "SELECT * FROM marca;";
+        String query = "SELECT * FROM marca ORDER BY id;";
         ResultSet rs = connection.consultarBD(query);
         while (rs.next()) {
             Marca marca = new Marca();

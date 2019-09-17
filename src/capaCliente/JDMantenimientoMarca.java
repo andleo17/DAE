@@ -2,8 +2,6 @@
 package capaCliente;
 
 import capaNegocio.Marca;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -201,6 +199,11 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
         btnDarBaja.setText("Dar Baja");
         btnDarBaja.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnDarBaja.setRequestFocusEnabled(false);
+        btnDarBaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDarBajaActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setBackground(new java.awt.Color(0, 102, 102));
         btnBuscar.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -237,6 +240,11 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
 
             }
         ));
+        tblDatos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDatosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblDatos);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -256,10 +264,9 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
                             .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnDarBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(54, 54, 54)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
@@ -322,8 +329,8 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
                 marca.setNombre(txtNombre.getText());
                 marca.setVigente(chkVigencia.isSelected());
                 marca.registrar();
-                limpiar();
             }
+            limpiar();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
@@ -388,6 +395,30 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
         listar();
     }//GEN-LAST:event_formWindowActivated
 
+    private void btnDarBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarBajaActionPerformed
+        if (!txtCodigo.getText().isEmpty()) {
+            try {
+                Marca.darBaja(Integer.valueOf(txtCodigo.getText()));
+                JOptionPane.showMessageDialog(this, "Marca dada de baja correctamente");
+                limpiar();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
+                limpiar();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Ingrese un código");
+        }
+    }//GEN-LAST:event_btnDarBajaActionPerformed
+
+    private void tblDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDatosMouseClicked
+        try {
+            txtCodigo.setText(tblDatos.getValueAt(tblDatos.getSelectedRow(), 0).toString());
+            btnBuscarActionPerformed(null);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_tblDatosMouseClicked
+
     private void limpiar() {
         txtCodigo.setText("");
         txtCodigo.setEditable(true);
@@ -400,15 +431,12 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
     
     private void listar() {
         try {
-            DefaultTableModel model = new DefaultTableModel();
-            model.addColumn("ID");
-            model.addColumn("Nombre");
-            model.addColumn("Vigente");
+            DefaultTableModel model = new DefaultTableModel(new String[] {"ID", "Nombre", "Vigente"}, 0);
             Marca.listarTodo().forEach(m -> {
                 model.addRow(new Object[] {
                     m.getId(),
                     m.getNombre(),
-                    m.isVigente()
+                    m.isVigente() ? "Sí" : "No"
                 });
             });
             tblDatos.setModel(model);

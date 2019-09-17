@@ -430,19 +430,16 @@ public class JFPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuMantenimientoMarcaActionPerformed
 
     private class Reloj implements Runnable {
-        DateFormat hora = new SimpleDateFormat("hh:mm:ss a");
-        DateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
-        Thread hilo;
-        
+
         public Reloj() {
-            hilo = new Thread(this);
-            hilo.start();
+            new Thread(this).start();
         }
 
         @Override
         public void run() {
-            Thread hiloActual = Thread.currentThread();
-            while (hiloActual == hilo) {
+            DateFormat hora = new SimpleDateFormat("hh:mm:ss a");
+            DateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
+            while (true) {
                 try {
                     Date tiempo = new Date();
                     lblFecha.setText(fecha.format(tiempo));
