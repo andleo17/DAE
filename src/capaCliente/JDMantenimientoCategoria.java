@@ -1,14 +1,14 @@
 
 package capaCliente;
 
-import capaNegocio.Marca;
+import capaNegocio.Categoria;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class JDMantenimientoMarca extends javax.swing.JDialog {
+public class JDMantenimientoCategoria extends javax.swing.JDialog {
 
-    public JDMantenimientoMarca(java.awt.Frame parent, boolean modal) {
+    public JDMantenimientoCategoria(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -39,9 +39,13 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
         btnLimpiar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDatos = new javax.swing.JTable();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtDescripcion = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Mantenimiento de marca");
+        setTitle("Mantenimiento de categoria");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -52,7 +56,7 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Mantenimiento de marca");
+        jLabel1.setText("Mantenimiento de categoría");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -61,7 +65,7 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jLabel1)
-                .addContainerGap(464, Short.MAX_VALUE))
+                .addContainerGap(565, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,7 +158,7 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(chkVigencia)
-                .addGap(0, 96, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,6 +257,31 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(tblDatos);
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setText("Descripción:");
+
+        txtDescripcion.setColumns(20);
+        txtDescripcion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtDescripcion.setLineWrap(true);
+        txtDescripcion.setRows(5);
+        txtDescripcion.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        jScrollPane2.setViewportView(txtDescripcion);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel5)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -265,30 +294,32 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
                             .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnDarBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(54, 54, 54)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -300,8 +331,9 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -315,7 +347,7 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -325,19 +357,19 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         try {
             if (btnNuevo.getText().equals("Nuevo")) {
-                txtCodigo.setText(String.valueOf(Marca.generarCodigo()));
+                txtCodigo.setText(String.valueOf(Categoria.generarCodigo()));
                 txtCodigo.setEditable(false);
                 txtNombre.requestFocus();
                 btnNuevo.setText("Guardar");
             } else {
-                Marca marca = new Marca();
-                marca.setId(Integer.valueOf(txtCodigo.getText()));
-                marca.setNombre(txtNombre.getText());
-                marca.setVigente(chkVigencia.isSelected());
-                marca.registrar();
+                Categoria categoria = new Categoria();
+                categoria.setId(Integer.valueOf(txtCodigo.getText()));
+                categoria.setNombre(txtNombre.getText());
+                categoria.setDescripcion(txtDescripcion.getText());
+                categoria.setVigente(chkVigencia.isSelected());
+                categoria.registrar();
                 limpiar();
             }
-            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
@@ -350,10 +382,11 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         if (!txtCodigo.getText().isEmpty()) {
             try {
-                Marca marca = Marca.buscar(Integer.valueOf(txtCodigo.getText()));
-                txtCodigo.setText(String.valueOf(marca.getId()));
-                txtNombre.setText(marca.getNombre());
-                chkVigencia.setSelected(marca.isVigente());
+                Categoria categoria = Categoria.buscar(Integer.valueOf(txtCodigo.getText()));
+                txtCodigo.setText(String.valueOf(categoria.getId()));
+                txtNombre.setText(categoria.getNombre());
+                txtDescripcion.setText(categoria.getDescripcion());
+                chkVigencia.setSelected(categoria.isVigente());
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e.getMessage());
                 limpiar();
@@ -366,7 +399,7 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         if (!txtCodigo.getText().isEmpty()) {
             try {
-                Marca.eliminar(Integer.valueOf(txtCodigo.getText()));
+                Categoria.eliminar(Integer.valueOf(txtCodigo.getText()));
                 JOptionPane.showMessageDialog(this, "Registro eliminado correctamente");
                 limpiar();
             } catch (Exception e) {
@@ -381,12 +414,13 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         if (!txtCodigo.getText().isEmpty()) {
             try {
-                Marca marcaAnterior = Marca.buscar(Integer.valueOf(txtCodigo.getText()));
-                Marca marcaNueva = new Marca();
-                marcaNueva.setId(marcaAnterior.getId());
-                marcaNueva.setNombre(txtNombre.getText());
-                marcaNueva.setVigente(chkVigencia.isSelected());
-                marcaAnterior.modificar(marcaNueva);
+                Categoria categoriaAnterior = Categoria.buscar(Integer.valueOf(txtCodigo.getText()));
+                Categoria categoriaNueva = new Categoria();
+                categoriaNueva.setId(categoriaAnterior.getId());
+                categoriaNueva.setNombre(txtNombre.getText());
+                categoriaNueva.setDescripcion(txtDescripcion.getText());
+                categoriaNueva.setVigente(chkVigencia.isSelected());
+                categoriaAnterior.modificar(categoriaNueva);
                 JOptionPane.showMessageDialog(this, "Registro modificado correctamente");
                 limpiar();
             } catch (Exception e) {
@@ -405,8 +439,8 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
     private void btnDarBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarBajaActionPerformed
         if (!txtCodigo.getText().isEmpty()) {
             try {
-                Marca.darBaja(Integer.valueOf(txtCodigo.getText()));
-                JOptionPane.showMessageDialog(this, "Marca dada de baja correctamente");
+                Categoria.darBaja(Integer.valueOf(txtCodigo.getText()));
+                JOptionPane.showMessageDialog(this, "Categoria dada de baja correctamente");
                 limpiar();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e.getMessage());
@@ -434,6 +468,7 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
         txtCodigo.setText("");
         txtCodigo.setEditable(true);
         txtNombre.setText("");
+        txtDescripcion.setText("");
         chkVigencia.setSelected(false);
         btnNuevo.setText("Nuevo");
         txtCodigo.requestFocus();
@@ -442,12 +477,13 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
     
     private void listar() {
         try {
-            DefaultTableModel model = new DefaultTableModel(new String[] {"ID", "Nombre", "Vigente"}, 0);
-            Marca.listarTodo().forEach(m -> {
+            DefaultTableModel model = new DefaultTableModel(new String[] {"ID", "Nombre", "Descripcion", "Vigente"}, 0);
+            Categoria.listarTodo().forEach(c -> {
                 model.addRow(new Object[] {
-                    m.getId(),
-                    m.getNombre(),
-                    m.isVigente() ? "Sí" : "No"
+                    c.getId(),
+                    c.getNombre(),
+                    c.getDescripcion(),
+                    c.isVigente() ? "Sí" : "No"
                 });
             });
             tblDatos.setModel(model);
@@ -468,16 +504,20 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable tblDatos;
     private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

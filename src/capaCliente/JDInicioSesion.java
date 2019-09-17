@@ -266,9 +266,7 @@ public class JDInicioSesion extends javax.swing.JDialog {
     }//GEN-LAST:event_txtUsuarioFocusLost
 
     private void txtClaveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyTyped
-        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
-            btnLogin.doClick();
-        }
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) btnLogin.doClick();
     }//GEN-LAST:event_txtClaveKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

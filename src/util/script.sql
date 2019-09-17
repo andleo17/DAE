@@ -96,3 +96,5 @@ CREATE TRIGGER tg_cambiarEstadoMovimiento AFTER INSERT ON movimiento FOR EACH RO
 -- Mantenimiento de base de datos
 ALTER TABLE marca ADD vigencia BOOLEAN NULL;
 UPDATE marca SET vigencia = TRUE;
+
+SELECT coalesce(MAX(id), 0) + 1 FROM categoria;
