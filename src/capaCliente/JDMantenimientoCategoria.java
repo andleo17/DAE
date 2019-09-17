@@ -264,6 +264,7 @@ public class JDMantenimientoCategoria extends javax.swing.JDialog {
         txtDescripcion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtDescripcion.setLineWrap(true);
         txtDescripcion.setRows(5);
+        txtDescripcion.setAutoscrolls(false);
         txtDescripcion.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         jScrollPane2.setViewportView(txtDescripcion);
 
