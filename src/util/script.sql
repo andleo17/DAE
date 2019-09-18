@@ -49,26 +49,26 @@ INSERT INTO usuario VALUES  (1, 'admin', '123456', 'Juan Perez Perez', 'Gerente 
                             (2, 'invitado', 'USAT2019', 'María Mendoza', 'Supervisor', FALSE, 'Primer número de celular', '976584237'),
                             (3, 'venta', 'chiclayo', 'Pedro Casas Merino', 'Jefe de ventas', TRUE, 'Nombre de tu mascota', 'Otto');
 
-INSERT INTO marca VALUES (1, 'EPSON');
+INSERT INTO marca VALUES (1, 'EPSON', TRUE);
 
 INSERT INTO categoria VALUES (1, 'Impresora', NULL, TRUE);
 
 INSERT INTO producto VALUES (1, 'EPSON LX890', 'Esta impresora imprime bien chévere sus impresos', 345.89, 15, TRUE, 1, 1);
 
 -- Validar vigencia de usuario
-SELECT estado FROM usuario WHERE usuario.usuario = 'admin' AND usuario.clave = '1234656';
+-- SELECT estado FROM usuario WHERE usuario.usuario = 'admin' AND usuario.clave = '1234656';
 
 -- Inicio de sesión
-SELECT nombre FROM usuario WHERE usuario.usuario = 'admin' AND clave = '123456' AND estado = TRUE;
+-- SELECT nombre FROM usuario WHERE usuario.usuario = 'admin' AND clave = '123456' AND estado = TRUE;
 
 -- Cambio de contraseña
-UPDATE usuario SET clave = 'nuevaclave' WHERE nombre = 'nombre';
+-- UPDATE usuario SET clave = 'nuevaclave' WHERE nombre = 'nombre';
 
 -- Mostrar pregunta secreta
-SELECT pregunta FROM usuario WHERE usuario.usuario = 'admin';
+-- pregunta FROM usuario WHERE usuario.usuario = 'admin';
 
 -- Validar respuesta secreta
-SELECT * FROM usuario WHERE usuario.usuario = 'admin' AND usuario.respuesta = 'respuesta' AND usuario.estado = TRUE;
+-- SELECT * FROM usuario WHERE usuario.usuario = 'admin' AND usuario.respuesta = 'respuesta' AND usuario.estado = TRUE;
 
 CREATE OR REPLACE FUNCTION fn_tg_cambiarEstadoMovimiento () RETURNS TRIGGER AS
 $$
@@ -93,8 +93,6 @@ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER tg_cambiarEstadoMovimiento AFTER INSERT ON movimiento FOR EACH ROW EXECUTE PROCEDURE fn_tg_cambiarEstadoMovimiento();
 
--- Mantenimiento de base de datos
-ALTER TABLE marca ADD vigencia BOOLEAN NULL;
-UPDATE marca SET vigencia = TRUE;
+select * from marca
 
-SELECT coalesce(MAX(id), 0) + 1 FROM categoria;
+SELECT *, producto.id FROM producto INNER JOIN marca ON producto.marca_id = marca.id INNER JOIN categoria ON producto.categoria_id = categoria.id ORDER BY producto.id;

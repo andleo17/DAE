@@ -10,7 +10,7 @@ public class DBConnection {
     private final String user = "postgres";
     private final String password = "USAT2019";
 //    private final String password = "123456789";
-    private Connection connection = null;
+    public Connection connection = null;
     private Statement statement = null;
     
     public void conectarBD() throws Exception {
