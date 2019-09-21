@@ -363,11 +363,12 @@ public class JDMantenimientoCategoria extends javax.swing.JDialog {
                 txtNombre.requestFocus();
                 btnNuevo.setText("Guardar");
             } else {
-                Categoria categoria = new Categoria();
-                categoria.setId(Integer.valueOf(txtCodigo.getText()));
-                categoria.setNombre(txtNombre.getText());
-                categoria.setDescripcion(txtDescripcion.getText());
-                categoria.setVigente(chkVigencia.isSelected());
+                var categoria = new Categoria();
+                    categoria.setId(Integer.valueOf(txtCodigo.getText()));
+                    categoria.setNombre(txtNombre.getText());
+                    categoria.setDescripcion(txtDescripcion.getText());
+                    categoria.setVigente(chkVigencia.isSelected());
+                    
                 categoria.registrar();
                 limpiar();
             }
@@ -383,7 +384,7 @@ public class JDMantenimientoCategoria extends javax.swing.JDialog {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         if (!txtCodigo.getText().isEmpty()) {
             try {
-                Categoria categoria = Categoria.buscar(Integer.valueOf(txtCodigo.getText()));
+                var categoria = Categoria.buscar(Integer.valueOf(txtCodigo.getText()));
                 txtCodigo.setText(String.valueOf(categoria.getId()));
                 txtNombre.setText(categoria.getNombre());
                 txtDescripcion.setText(categoria.getDescripcion());
@@ -392,9 +393,8 @@ public class JDMantenimientoCategoria extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, e.getMessage());
                 limpiar();
             }
-        } else {
+        } else
             JOptionPane.showMessageDialog(this, "Ingrese un código");
-        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -407,20 +407,20 @@ public class JDMantenimientoCategoria extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, e.getMessage());
                 limpiar();
             }
-        } else {
+        } else
             JOptionPane.showMessageDialog(this, "Ingrese un código");
-        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         if (!txtCodigo.getText().isEmpty()) {
             try {
-                Categoria categoriaAnterior = Categoria.buscar(Integer.valueOf(txtCodigo.getText()));
-                Categoria categoriaNueva = new Categoria();
-                categoriaNueva.setId(categoriaAnterior.getId());
-                categoriaNueva.setNombre(txtNombre.getText());
-                categoriaNueva.setDescripcion(txtDescripcion.getText());
-                categoriaNueva.setVigente(chkVigencia.isSelected());
+                var categoriaAnterior = Categoria.buscar(Integer.valueOf(txtCodigo.getText()));
+                var categoriaNueva = new Categoria();
+                    categoriaNueva.setId(categoriaAnterior.getId());
+                    categoriaNueva.setNombre(txtNombre.getText());
+                    categoriaNueva.setDescripcion(txtDescripcion.getText());
+                    categoriaNueva.setVigente(chkVigencia.isSelected());
+                    
                 categoriaAnterior.modificar(categoriaNueva);
                 JOptionPane.showMessageDialog(this, "Registro modificado correctamente");
                 limpiar();
@@ -428,9 +428,8 @@ public class JDMantenimientoCategoria extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, e.getMessage());
                 limpiar();
             }
-        } else {
+        } else
             JOptionPane.showMessageDialog(this, "Ingrese un código");
-        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -447,9 +446,8 @@ public class JDMantenimientoCategoria extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, e.getMessage());
                 limpiar();
             }
-        } else {
+        } else
             JOptionPane.showMessageDialog(this, "Ingrese un código");
-        }
     }//GEN-LAST:event_btnDarBajaActionPerformed
 
     private void tblDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDatosMouseClicked
@@ -478,7 +476,7 @@ public class JDMantenimientoCategoria extends javax.swing.JDialog {
     
     private void listar() {
         try {
-            DefaultTableModel model = new DefaultTableModel(new String[] {"ID", "Nombre", "Descripcion", "Vigente"}, 0);
+            var model = new DefaultTableModel(new String[] {"ID", "Nombre", "Descripcion", "Vigente"}, 0);
             Categoria.listarTodo().forEach(c -> {
                 model.addRow(new Object[] {
                     c.getId(),
@@ -487,6 +485,7 @@ public class JDMantenimientoCategoria extends javax.swing.JDialog {
                     c.isVigente() ? "Sí" : "No"
                 });
             });
+            
             tblDatos.setModel(model);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());

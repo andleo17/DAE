@@ -330,10 +330,11 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
                 txtNombre.requestFocus();
                 btnNuevo.setText("Guardar");
             } else {
-                Marca marca = new Marca();
-                marca.setId(Integer.valueOf(txtCodigo.getText()));
-                marca.setNombre(txtNombre.getText());
-                marca.setVigente(chkVigencia.isSelected());
+                var marca = new Marca();
+                    marca.setId(Integer.valueOf(txtCodigo.getText()));
+                    marca.setNombre(txtNombre.getText());
+                    marca.setVigente(chkVigencia.isSelected());
+                    
                 marca.registrar();
                 limpiar();
             }
@@ -350,7 +351,7 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         if (!txtCodigo.getText().isEmpty()) {
             try {
-                Marca marca = Marca.buscar(Integer.valueOf(txtCodigo.getText()));
+                var marca = Marca.buscar(Integer.valueOf(txtCodigo.getText()));
                 txtCodigo.setText(String.valueOf(marca.getId()));
                 txtNombre.setText(marca.getNombre());
                 chkVigencia.setSelected(marca.isVigente());
@@ -358,9 +359,8 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, e.getMessage());
                 limpiar();
             }
-        } else {
+        } else
             JOptionPane.showMessageDialog(this, "Ingrese un código");
-        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -373,29 +373,28 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, e.getMessage());
                 limpiar();
             }
-        } else {
+        } else
             JOptionPane.showMessageDialog(this, "Ingrese un código");
-        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         if (!txtCodigo.getText().isEmpty()) {
             try {
-                Marca marcaAnterior = Marca.buscar(Integer.valueOf(txtCodigo.getText()));
-                Marca marcaNueva = new Marca();
-                marcaNueva.setId(marcaAnterior.getId());
-                marcaNueva.setNombre(txtNombre.getText());
-                marcaNueva.setVigente(chkVigencia.isSelected());
-                marcaAnterior.modificar(marcaNueva);
+                var marcaAnterior = Marca.buscar(Integer.valueOf(txtCodigo.getText()));
+                var marcaNueva = new Marca();
+                    marcaNueva.setId(marcaAnterior.getId());
+                    marcaNueva.setNombre(txtNombre.getText());
+                    marcaNueva.setVigente(chkVigencia.isSelected());
+                    marcaAnterior.modificar(marcaNueva);
+                    
                 JOptionPane.showMessageDialog(this, "Registro modificado correctamente");
                 limpiar();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e.getMessage());
                 limpiar();
             }
-        } else {
+        } else
             JOptionPane.showMessageDialog(this, "Ingrese un código");
-        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -412,9 +411,8 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, e.getMessage());
                 limpiar();
             }
-        } else {
+        } else
             JOptionPane.showMessageDialog(this, "Ingrese un código");
-        }
     }//GEN-LAST:event_btnDarBajaActionPerformed
 
     private void tblDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDatosMouseClicked
@@ -442,7 +440,7 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
     
     private void listar() {
         try {
-            DefaultTableModel model = new DefaultTableModel(new String[] {"ID", "Nombre", "Vigente"}, 0);
+            var model = new DefaultTableModel(new String[] {"ID", "Nombre", "Vigente"}, 0);
             Marca.listarTodo().forEach(m -> {
                 model.addRow(new Object[] {
                     m.getId(),
@@ -450,6 +448,7 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
                     m.isVigente() ? "Sí" : "No"
                 });
             });
+            
             tblDatos.setModel(model);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());

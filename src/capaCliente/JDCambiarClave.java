@@ -4,7 +4,6 @@ import capaNegocio.Usuario;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 
-
 public class JDCambiarClave extends javax.swing.JDialog {
     
     Usuario usuario;

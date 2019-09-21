@@ -17,8 +17,6 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
     public JDMantenimientoProducto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        marcas = new ArrayList();
-        categorias = new ArrayList();
     }
 
     @SuppressWarnings("unchecked")
@@ -524,15 +522,16 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
                 txtNombre.requestFocus();
                 btnNuevo.setText("Guardar");
             } else {
-                Producto producto = new Producto();
-                producto.setId(Integer.valueOf(txtCodigo.getText()));
-                producto.setNombre(txtNombre.getText());
-                producto.setDescripcion(txtDescripcion.getText());
-                producto.setPrecio(Float.valueOf(txtPrecio.getText()));
-                producto.setStock((int) spnStock.getValue());
-                producto.setVigente(chkVigencia.isSelected());
-                producto.setMarca(marcas.get(cboMarca.getSelectedIndex()));
-                producto.setCategoria(categorias.get(cboCategoria.getSelectedIndex()));
+                var producto = new Producto();
+                    producto.setId(Integer.valueOf(txtCodigo.getText()));
+                    producto.setNombre(txtNombre.getText());
+                    producto.setDescripcion(txtDescripcion.getText());
+                    producto.setPrecio(Float.valueOf(txtPrecio.getText()));
+                    producto.setStock((int) spnStock.getValue());
+                    producto.setVigente(chkVigencia.isSelected());
+                    producto.setMarca(marcas.get(cboMarca.getSelectedIndex()));
+                    producto.setCategoria(categorias.get(cboCategoria.getSelectedIndex()));
+                    
                 producto.registrar();
                 limpiar();
             }
@@ -548,7 +547,7 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         if (!txtCodigo.getText().isEmpty()) {
             try {
-                Producto producto = Producto.buscar(Integer.valueOf(txtCodigo.getText()));
+                var producto = Producto.buscar(Integer.valueOf(txtCodigo.getText()));
                 txtCodigo.setText(String.valueOf(producto.getId()));
                 txtNombre.setText(producto.getNombre());
                 txtDescripcion.setText(producto.getDescripcion());
@@ -561,9 +560,8 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, e.getMessage());
                 limpiar();
             }
-        } else {
+        } else
             JOptionPane.showMessageDialog(this, "Ingrese un código");
-        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -576,25 +574,25 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, e.getMessage());
                 limpiar();
             }
-        } else {
+        } else
             JOptionPane.showMessageDialog(this, "Ingrese un código");
-        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         if (!txtCodigo.getText().isEmpty()) {
             try {
-                Producto productoAnterior = Producto.buscar(Integer.valueOf(txtCodigo.getText()));
-                Producto productoNuevo = new Producto();
-                productoNuevo.setId(productoAnterior.getId());
-                productoNuevo.setNombre(txtNombre.getText());
-                productoNuevo.setDescripcion(txtDescripcion.getText());
-                productoNuevo.setVigente(chkVigencia.isSelected());
-                productoNuevo.setPrecio(Float.valueOf(txtPrecio.getText()));
-                productoNuevo.setStock((int) spnStock.getValue());
-                productoNuevo.setVigente(chkVigencia.isSelected());
-                productoNuevo.setMarca(marcas.get(cboMarca.getSelectedIndex()));
-                productoNuevo.setCategoria(categorias.get(cboCategoria.getSelectedIndex()));
+                var productoAnterior = Producto.buscar(Integer.valueOf(txtCodigo.getText()));
+                var productoNuevo = new Producto();
+                    productoNuevo.setId(productoAnterior.getId());
+                    productoNuevo.setNombre(txtNombre.getText());
+                    productoNuevo.setDescripcion(txtDescripcion.getText());
+                    productoNuevo.setVigente(chkVigencia.isSelected());
+                    productoNuevo.setPrecio(Float.valueOf(txtPrecio.getText()));
+                    productoNuevo.setStock((int) spnStock.getValue());
+                    productoNuevo.setVigente(chkVigencia.isSelected());
+                    productoNuevo.setMarca(marcas.get(cboMarca.getSelectedIndex()));
+                    productoNuevo.setCategoria(categorias.get(cboCategoria.getSelectedIndex()));
+                    
                 productoAnterior.modificar(productoNuevo);
                 JOptionPane.showMessageDialog(this, "Registro modificado correctamente");
                 limpiar();
@@ -602,9 +600,8 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, e.getMessage());
                 limpiar();
             }
-        } else {
+        } else
             JOptionPane.showMessageDialog(this, "Ingrese un código");
-        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -623,9 +620,8 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, e.getMessage());
                 limpiar();
             }
-        } else {
+        } else
             JOptionPane.showMessageDialog(this, "Ingrese un código");
-        }
     }//GEN-LAST:event_btnDarBajaActionPerformed
 
     private void tblDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDatosMouseClicked
@@ -658,7 +654,7 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
     
     private void listar() {
         try {
-            DefaultTableModel model = new DefaultTableModel(new String[] {
+            var model = new DefaultTableModel(new String[] {
                 "ID", "Nombre", "Descripcion", "Precio", "Stock", "Vigente", "Marca", "Categoria"
             }, 0);
             Producto.listarTodo().forEach(p -> {
@@ -673,6 +669,7 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
                     p.getCategoria().getNombre()
                 });
             });
+            
             tblDatos.setModel(model);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());

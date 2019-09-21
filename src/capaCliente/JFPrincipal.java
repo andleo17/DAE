@@ -416,9 +416,9 @@ public class JFPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mnuCambiarClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCambiarClaveActionPerformed
-        JDCambiarClave frmCambiarClave = new JDCambiarClave(this, true, usuario);
-        frmCambiarClave.setLocationRelativeTo(this);
-        frmCambiarClave.setVisible(true);
+        var frmCambiarClave = new JDCambiarClave(this, true, usuario);
+            frmCambiarClave.setLocationRelativeTo(this);
+            frmCambiarClave.setVisible(true);
     }//GEN-LAST:event_mnuCambiarClaveActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -434,21 +434,21 @@ public class JFPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuCerrarSesionActionPerformed
 
     private void mnuMantenimientoMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMantenimientoMarcaActionPerformed
-        JDMantenimientoMarca frm = new JDMantenimientoMarca(this, true);
-        frm.setLocationRelativeTo(this);
-        frm.setVisible(true);
+        var frm = new JDMantenimientoMarca(this, true);
+            frm.setLocationRelativeTo(this);
+            frm.setVisible(true);
     }//GEN-LAST:event_mnuMantenimientoMarcaActionPerformed
 
     private void mnuMantenimientoCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMantenimientoCategoriaActionPerformed
-        JDMantenimientoCategoria frm = new JDMantenimientoCategoria(this, true);
-        frm.setLocationRelativeTo(this);
-        frm.setVisible(true);
+        var frm = new JDMantenimientoCategoria(this, true);
+            frm.setLocationRelativeTo(this);
+            frm.setVisible(true);
     }//GEN-LAST:event_mnuMantenimientoCategoriaActionPerformed
 
     private void mnuMantenimientoProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMantenimientoProductosActionPerformed
-        JDMantenimientoProducto frm = new JDMantenimientoProducto(this, true);
-        frm.setLocationRelativeTo(this);
-        frm.setVisible(true);
+        var frm = new JDMantenimientoProducto(this, true);
+            frm.setLocationRelativeTo(this);
+            frm.setVisible(true);
     }//GEN-LAST:event_mnuMantenimientoProductosActionPerformed
 
     private class Reloj implements Runnable {
@@ -481,9 +481,10 @@ public class JFPrincipal extends javax.swing.JFrame {
     }
     
     private void abrirIniciarSesion() {
-        JDInicioSesion frmInicioSesion = new JDInicioSesion(this, true);
-        frmInicioSesion.setLocationRelativeTo(this);
-        frmInicioSesion.setVisible(true);
+        var frmInicioSesion = new JDInicioSesion(this, true);
+            frmInicioSesion.setLocationRelativeTo(this);
+            frmInicioSesion.setVisible(true);
+            
         if (frmInicioSesion.usuario.getUsuario() != null) {
             try {
                 this.usuario = frmInicioSesion.usuario;

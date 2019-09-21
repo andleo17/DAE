@@ -219,9 +219,8 @@ public class JDInicioSesion extends javax.swing.JDialog {
                 if (usuario.isEstado()) {
                     JOptionPane.showMessageDialog(this, "Inicio de sesión correcto");
                     this.dispose();
-                } else {
+                } else
                     JOptionPane.showMessageDialog(this, "Usuario caducado");
-                }
             } else {
                 JOptionPane.showMessageDialog(this, "Usuario y/o contraseña incorrectos");
                 txtClave.setText("");
@@ -259,7 +258,7 @@ public class JDInicioSesion extends javax.swing.JDialog {
 
     private void txtUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioFocusLost
         try {
-            lblUltimaSesion.setText(usuario.obtenerUltimaSesion(txtUsuario.getText()));
+            lblUltimaSesion.setText(Usuario.obtenerUltimaSesion(txtUsuario.getText()));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
