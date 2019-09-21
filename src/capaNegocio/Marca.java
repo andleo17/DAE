@@ -14,10 +14,10 @@ public class Marca implements IDBConnection {
     public static int generarCodigo() throws Exception {
         try (var connection = conectarBD()) {
             var query = "SELECT coalesce(MAX(id), 0) + 1 FROM marca;";
-            var rs = connection.createStatement().executeQuery(query);
-                rs.next();
+            var resultSet = connection.createStatement().executeQuery(query);
+                resultSet.next();
                 
-            return rs.getInt(1);
+            return resultSet.getInt(1);
         } catch (Exception e) {
             throw e;
         }
@@ -43,12 +43,12 @@ public class Marca implements IDBConnection {
             var prepareStatement = connection.prepareStatement(query);
                 prepareStatement.setInt(1, codigo);
                 
-            var rs = prepareStatement.executeQuery();
-            if (rs.next()) {
+            var resultSet = prepareStatement.executeQuery();
+            if (resultSet.next()) {
                 var marca = new Marca();
                     marca.setId(codigo);
-                    marca.setNombre(rs.getString("nombre"));
-                    marca.setVigente(rs.getBoolean("vigencia"));
+                    marca.setNombre(resultSet.getString("nombre"));
+                    marca.setVigente(resultSet.getBoolean("vigencia"));
                     
                 return marca;
             } else {
@@ -93,6 +93,7 @@ public class Marca implements IDBConnection {
                 
             prepareStatement.executeUpdate();
         } catch (Exception e) {
+            throw e;
         }
     }
     

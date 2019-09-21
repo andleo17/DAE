@@ -81,7 +81,7 @@ public class Categoria implements IDBConnection {
                 prepareStatement.setString(1, categoria.getNombre());
                 prepareStatement.setString(2, categoria.getDescripcion());
                 prepareStatement.setBoolean(3, categoria.isVigente());
-                prepareStatement.setInt(1, this.id);
+                prepareStatement.setInt(4, this.id);
                 
             prepareStatement.executeUpdate();
         } catch (Exception e) {

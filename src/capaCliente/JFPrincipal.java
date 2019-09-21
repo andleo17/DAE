@@ -336,6 +336,11 @@ public class JFPrincipal extends javax.swing.JFrame {
         mnuMantenimiento.setText("Mantenimiento");
 
         jMenuItem4.setText("Usuarios");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         mnuMantenimiento.add(jMenuItem4);
 
         mnuMantenimientoMarca.setText("Marcas");
@@ -451,6 +456,12 @@ public class JFPrincipal extends javax.swing.JFrame {
             frm.setVisible(true);
     }//GEN-LAST:event_mnuMantenimientoProductosActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        var frm = new JDMantenimientoUsuario(this, true);
+            frm.setLocationRelativeTo(this);
+            frm.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     private class Reloj implements Runnable {
 
         public Reloj() {
@@ -485,7 +496,7 @@ public class JFPrincipal extends javax.swing.JFrame {
             frmInicioSesion.setLocationRelativeTo(this);
             frmInicioSesion.setVisible(true);
             
-        if (frmInicioSesion.usuario.getUsuario() != null) {
+        if (frmInicioSesion.usuario.getId() != 0) {
             try {
                 this.usuario = frmInicioSesion.usuario;
                 lblNumeroSesiones.setText(String.valueOf(usuario.obtenerCantidadSesiones()));
@@ -494,6 +505,8 @@ public class JFPrincipal extends javax.swing.JFrame {
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }
+        } else {
+            System.exit(0);
         }
     }
     
@@ -505,7 +518,7 @@ public class JFPrincipal extends javax.swing.JFrame {
             btnIniciarSesion.setVisible(!btnIniciarSesion.isVisible());
             mnuIniciarSesion.setVisible(!mnuIniciarSesion.isVisible());
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
     

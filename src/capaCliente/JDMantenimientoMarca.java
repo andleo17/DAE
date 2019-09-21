@@ -426,6 +426,7 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
 
     private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
         if (evt.getKeyChar() == KeyEvent.VK_ENTER) btnBuscar.doClick();
+        if ('0' > evt.getKeyChar() || evt.getKeyChar() > '9') evt.consume();
     }//GEN-LAST:event_txtCodigoKeyTyped
 
     private void limpiar() {

@@ -92,7 +92,3 @@ $$
 LANGUAGE 'plpgsql';
 
 CREATE TRIGGER tg_cambiarEstadoMovimiento AFTER INSERT ON movimiento FOR EACH ROW EXECUTE PROCEDURE fn_tg_cambiarEstadoMovimiento();
-
-select * from marca
-
-SELECT *, producto.id FROM producto INNER JOIN marca ON producto.marca_id = marca.id INNER JOIN categoria ON producto.categoria_id = categoria.id ORDER BY producto.id;

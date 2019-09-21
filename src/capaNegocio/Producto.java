@@ -19,10 +19,10 @@ public class Producto implements IDBConnection {
     public static int generarCodigo() throws Exception {
         try (var connection = conectarBD()) {
             var query = "SELECT coalesce(MAX(id), 0) + 1 FROM producto;";
-            var rs = connection.createStatement().executeQuery(query);
-                rs.next();
+            var resultSet = connection.createStatement().executeQuery(query);
+                resultSet.next();
                 
-            return rs.getInt(1);
+            return resultSet.getInt(1);
         } catch (Exception e) {
             throw e;
         }
@@ -154,7 +154,7 @@ public class Producto implements IDBConnection {
                     producto.setVigente(resultSet.getBoolean(6));
                     
                 var marca = new Marca();
-                    marca.setId(9);
+                    marca.setId(resultSet.getInt(9));
                     marca.setNombre(resultSet.getString(10));
                     marca.setVigente(resultSet.getBoolean(11));
                     producto.setMarca(marca);

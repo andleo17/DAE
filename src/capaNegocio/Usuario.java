@@ -4,6 +4,7 @@ package capaNegocio;
 import capaDatos.IDBConnection;
 import static capaDatos.IDBConnection.conectarBD;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 public class Usuario implements IDBConnection {
     
@@ -13,6 +14,8 @@ public class Usuario implements IDBConnection {
     private String nombre;
     private String cargo;
     private boolean estado;
+    private String pregunta;
+    private String respuesta;
     
     public boolean login(String usuario, String clave) throws Exception {
         try (var connection = conectarBD()) {
@@ -37,35 +40,37 @@ public class Usuario implements IDBConnection {
         }
     }
     
-    public static String obtenerPreguntaSecreta(String usuario) throws Exception {
+    public String obtenerPreguntaSecreta(String usuario) throws Exception {
         try (var connection = conectarBD()) {
             var query = "SELECT pregunta FROM usuario WHERE usuario.usuario = ?;";
             var prepareStatement = connection.prepareStatement(query);
                 prepareStatement.setString(1, usuario);
                 
             var resultSet = prepareStatement.executeQuery();
-            if (resultSet.next())
-                return resultSet.getString("pregunta");
-            else
+            if (resultSet.next()) {
+                this.usuario = usuario;
+                this.respuesta = resultSet.getString("pregunta");
+                return this.respuesta;
+            } else
                 return "";
         } catch (Exception e) {
             throw new Exception("Error al consultar pregunta secreta");
         }
     }
     
-    public boolean validarPreguntaSecreta(String usuario, String respuesta) throws Exception {
+    public boolean validarPreguntaSecreta(String respuesta) throws Exception {
         try (var connection = conectarBD()) {
             var query = "SELECT * FROM usuario WHERE usuario.usuario = ? AND respuesta = ?;";
             var prepareStatement = connection.prepareStatement(query);
-                prepareStatement.setString(1, usuario);
+                prepareStatement.setString(1, this.usuario);
                 prepareStatement.setString(2, respuesta);
                 
             var resultSet = prepareStatement.executeQuery();
             if (resultSet.next()) {
-                this.usuario = usuario;
                 this.id = resultSet.getInt("id");
                 this.nombre = resultSet.getString("nombre");
                 this.estado = resultSet.getBoolean("estado");
+                this.respuesta = resultSet.getString("respuesta");
                 insertarMovimiento();
                 return true;
             } else
@@ -151,11 +156,136 @@ public class Usuario implements IDBConnection {
             var prepareStatement = connection.prepareStatement(query);
                 prepareStatement.setInt(1, this.id);
                 
-            var rs = prepareStatement.executeQuery();
-            if (rs.next())
-                return rs.getInt(1);
+            var resultSet = prepareStatement.executeQuery();
+            if (resultSet.next())
+                return resultSet.getInt(1);
             else
                 return 0;
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    public static int generarCodigo() throws Exception {
+        try (var connection = conectarBD()) {
+            var query = "SELECT coalesce(MAX(id), 0) + 1 FROM usuario;";
+            var resultSet = connection.createStatement().executeQuery(query);
+                resultSet.next();
+                
+            return resultSet.getInt(1);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    public void registrar() throws Exception {
+        try (var connection = conectarBD()) {
+            var query = "INSERT INTO usuario VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+            var prepareStatement = connection.prepareStatement(query);
+                prepareStatement.setInt(1, this.id);
+                prepareStatement.setString(2, this.usuario);
+                prepareStatement.setString(3, this.clave);
+                prepareStatement.setString(4, this.nombre);
+                prepareStatement.setString(5, this.cargo);
+                prepareStatement.setBoolean(6, this.estado);
+                prepareStatement.setString(7, this.pregunta);
+                prepareStatement.setString(8, this.respuesta);
+                
+            prepareStatement.executeUpdate();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    public static Usuario buscar(int codigo) throws Exception {
+        try (var connection = conectarBD()) {
+            var query = "SELECT * FROM usuario WHERE id = ?;";
+            var prepareStatement = connection.prepareStatement(query);
+                prepareStatement.setInt(1, codigo);
+                
+            var resultSet = prepareStatement.executeQuery();
+            if (resultSet.next()) {
+                var usuario = new Usuario();
+                    usuario.setId(resultSet.getInt("id"));
+                    usuario.setUsuario(resultSet.getString("usuario"));
+                    usuario.setClave(resultSet.getString("clave"));
+                    usuario.setNombre(resultSet.getString("nombre"));
+                    usuario.setCargo(resultSet.getString("cargo"));
+                    usuario.setEstado(resultSet.getBoolean("estado"));
+                    usuario.setPregunta(resultSet.getString("pregunta"));
+                    usuario.setRespuesta(resultSet.getString("respuesta"));
+                
+                return usuario;
+            } else {
+                throw new Exception("No se encontró el usuario");
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    public void modificar(Usuario usuario) throws Exception {
+        try (var connection = conectarBD()) {
+            var query = "UPDATE usuario SET usuario = ?, clave = ?, nombre = ?, cargo = ?, estado = ?, pregunta = ?, respuesta = ? WHERE id = ?;";
+            var prepareStatement = connection.prepareStatement(query);
+                prepareStatement.setString(1, usuario.getUsuario());
+                prepareStatement.setString(2, usuario.getClave());
+                prepareStatement.setString(3, usuario.getNombre());
+                prepareStatement.setString(4, usuario.getCargo());
+                prepareStatement.setBoolean(5, usuario.isEstado());
+                prepareStatement.setString(6, usuario.getPregunta());
+                prepareStatement.setString(7, usuario.getRespuesta());
+                prepareStatement.setInt(8, this.id);
+            
+            prepareStatement.executeUpdate();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    public static void eliminar(int codigo) throws Exception {
+        try (var connection = conectarBD()) {
+            var query = "DELETE FROM usuario WHERE id = ?;";
+            var prepareStatement = connection.prepareStatement(query);
+                prepareStatement.setInt(1, codigo);
+                
+            prepareStatement.executeUpdate();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    public static void darBaja(int codigo) throws Exception {
+        try (var connection = conectarBD()) {
+            var query = "UPDATE usuario SET estado = FALSE WHERE id = ?;";
+            var prepareStatement = connection.prepareStatement(query);
+                prepareStatement.setInt(1, codigo);
+                
+            prepareStatement.executeUpdate();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    public static ArrayList<Usuario> listarTodo() throws Exception {
+        try (var connection = conectarBD()) {
+            var usuarios = new ArrayList<Usuario>();
+            var query = "SELECT * FROM usuario ORDER BY id;";
+            var resultSet = connection.createStatement().executeQuery(query);
+            while (resultSet.next()) {
+                var usuario = new Usuario();
+                    usuario.setId(resultSet.getInt("id"));
+                    usuario.setUsuario(resultSet.getString("usuario"));
+                    usuario.setClave(resultSet.getString("clave"));
+                    usuario.setNombre(resultSet.getString("nombre"));
+                    usuario.setCargo(resultSet.getString("cargo"));
+                    usuario.setEstado(resultSet.getBoolean("estado"));
+                    usuario.setPregunta(resultSet.getString("pregunta"));
+                    usuario.setRespuesta(resultSet.getString("respuesta"));
+                    
+                usuarios.add(usuario);
+            }
+            return usuarios;
         } catch (Exception e) {
             throw e;
         }
@@ -207,6 +337,22 @@ public class Usuario implements IDBConnection {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    public String getPregunta() {
+        return pregunta;
+    }
+
+    public void setPregunta(String pregunta) {
+        this.pregunta = pregunta;
+    }
+
+    public String getRespuesta() {
+        return respuesta;
+    }
+
+    public void setRespuesta(String respuesta) {
+        this.respuesta = respuesta;
     }
     
 }
