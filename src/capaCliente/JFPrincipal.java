@@ -53,11 +53,12 @@ public class JFPrincipal extends javax.swing.JFrame {
         mnuCerrarSesion = new javax.swing.JMenuItem();
         mnuCambiarClave = new javax.swing.JMenuItem();
         mnuMantenimiento = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        mnuUsuarios = new javax.swing.JMenuItem();
         mnuMantenimientoMarca = new javax.swing.JMenuItem();
         mnuMantenimientoCategoria = new javax.swing.JMenuItem();
         mnuMantenimientoProductos = new javax.swing.JMenuItem();
         mnuVentas = new javax.swing.JMenu();
+        mnuConsultarProductos = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
@@ -114,6 +115,11 @@ public class JFPrincipal extends javax.swing.JFrame {
         btnProductos.setMinimumSize(new java.awt.Dimension(70, 75));
         btnProductos.setPreferredSize(new java.awt.Dimension(70, 75));
         btnProductos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductosActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btnProductos);
 
         btnVentas.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -335,13 +341,13 @@ public class JFPrincipal extends javax.swing.JFrame {
 
         mnuMantenimiento.setText("Mantenimiento");
 
-        jMenuItem4.setText("Usuarios");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        mnuUsuarios.setText("Usuarios");
+        mnuUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                mnuUsuariosActionPerformed(evt);
             }
         });
-        mnuMantenimiento.add(jMenuItem4);
+        mnuMantenimiento.add(mnuUsuarios);
 
         mnuMantenimientoMarca.setText("Marcas");
         mnuMantenimientoMarca.addActionListener(new java.awt.event.ActionListener() {
@@ -370,6 +376,14 @@ public class JFPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(mnuMantenimiento);
 
         mnuVentas.setText("Ventas");
+
+        mnuConsultarProductos.setText("Productos");
+        mnuConsultarProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuConsultarProductosActionPerformed(evt);
+            }
+        });
+        mnuVentas.add(mnuConsultarProductos);
 
         jMenuItem8.setText("Clientes");
         mnuVentas.add(jMenuItem8);
@@ -456,11 +470,23 @@ public class JFPrincipal extends javax.swing.JFrame {
             frm.setVisible(true);
     }//GEN-LAST:event_mnuMantenimientoProductosActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void mnuUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuUsuariosActionPerformed
         var frm = new JDMantenimientoUsuario(this, true);
             frm.setLocationRelativeTo(this);
             frm.setVisible(true);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_mnuUsuariosActionPerformed
+
+    private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
+        var frm = new JDConsultas(this, true);
+            frm.setLocationRelativeTo(this);
+            frm.setVisible(true);
+    }//GEN-LAST:event_btnProductosActionPerformed
+
+    private void mnuConsultarProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuConsultarProductosActionPerformed
+        var frm = new JDConsultas(this, true);
+            frm.setLocationRelativeTo(this);
+            frm.setVisible(true);
+    }//GEN-LAST:event_mnuConsultarProductosActionPerformed
 
     private class Reloj implements Runnable {
 
@@ -541,7 +567,6 @@ public class JFPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
@@ -559,6 +584,7 @@ public class JFPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JMenuItem mnuCambiarClave;
     private javax.swing.JMenuItem mnuCerrarSesion;
+    private javax.swing.JMenuItem mnuConsultarProductos;
     private javax.swing.JMenuItem mnuIniciarSesion;
     private javax.swing.JMenu mnuLogin;
     private javax.swing.JMenu mnuMantenimiento;
@@ -566,6 +592,7 @@ public class JFPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuMantenimientoMarca;
     private javax.swing.JMenuItem mnuMantenimientoProductos;
     private javax.swing.JMenu mnuReportes;
+    private javax.swing.JMenuItem mnuUsuarios;
     private javax.swing.JMenu mnuVentas;
     private javax.swing.JPanel usuarioContenedor;
     // End of variables declaration//GEN-END:variables

@@ -173,6 +173,33 @@ public class Producto implements IDBConnection {
             throw e;
         }
     }
+    
+    public static ArrayList<Producto> filtrarProductos(String nombre, int categoria, int marca) throws Exception{
+        try (var connection = conectarBD()) {
+            var productos = new ArrayList<Producto>();
+            var query = "SELECT * FROM producto WHERE nombre LIKE '%" + nombre + "%' AND " +
+                    (categoria == -1 ? "TRUE" : "categoria_id = "+ categoria)
+                    + " AND " +
+                    (marca == -1 ? "TRUE" : "marca_id = " + marca)
+                    + ";";
+            
+            var resultSet = connection.createStatement().executeQuery(query);
+            while (resultSet.next()) {
+                var producto = new Producto();
+                    producto.setId(resultSet.getInt(1));
+                    producto.setNombre(resultSet.getString(2));
+                    producto.setDescripcion(resultSet.getString(3));
+                    producto.setPrecio(resultSet.getFloat(4));
+                    producto.setStock(resultSet.getInt(5));
+                    producto.setVigente(resultSet.getBoolean(6));
+                    
+                productos.add(producto);
+            }
+            return productos;
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 
     public int getId() {
         return id;

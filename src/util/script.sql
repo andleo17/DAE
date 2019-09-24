@@ -1,7 +1,3 @@
-﻿-- Fecha de creación	: 27 Agosto 2019
--- Última modificación	: 10 Septiembre 2019
--- Autor		: Baldárrago Gastulo, Andrés Leonardo
-
 CREATE TABLE usuario (
 	id		INT			PRIMARY KEY,
 	usuario		VARCHAR(20)		NOT NULL UNIQUE,
