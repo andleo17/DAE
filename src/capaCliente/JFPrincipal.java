@@ -59,7 +59,7 @@ public class JFPrincipal extends javax.swing.JFrame {
         mnuMantenimientoProductos = new javax.swing.JMenuItem();
         mnuVentas = new javax.swing.JMenu();
         mnuConsultarProductos = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        mnuClientes = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         mnuReportes = new javax.swing.JMenu();
@@ -139,6 +139,11 @@ public class JFPrincipal extends javax.swing.JFrame {
         btnClientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnClientes.setPreferredSize(new java.awt.Dimension(70, 75));
         btnClientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClientesActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btnClientes);
 
         btnPagar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -385,8 +390,13 @@ public class JFPrincipal extends javax.swing.JFrame {
         });
         mnuVentas.add(mnuConsultarProductos);
 
-        jMenuItem8.setText("Clientes");
-        mnuVentas.add(jMenuItem8);
+        mnuClientes.setText("Clientes");
+        mnuClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuClientesActionPerformed(evt);
+            }
+        });
+        mnuVentas.add(mnuClientes);
 
         jMenuItem9.setText("Venta");
         mnuVentas.add(jMenuItem9);
@@ -477,16 +487,28 @@ public class JFPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuUsuariosActionPerformed
 
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
-        var frm = new JDConsultas(this, true);
-            frm.setLocationRelativeTo(this);
-            frm.setVisible(true);
+//        var frm = new JDConsultas(this, true);
+//            frm.setLocationRelativeTo(this);
+//            frm.setVisible(true);
     }//GEN-LAST:event_btnProductosActionPerformed
 
     private void mnuConsultarProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuConsultarProductosActionPerformed
-        var frm = new JDConsultas(this, true);
+//        var frm = new JDConsultas(this, true);
+//            frm.setLocationRelativeTo(this);
+//            frm.setVisible(true);
+    }//GEN-LAST:event_mnuConsultarProductosActionPerformed
+
+    private void mnuClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuClientesActionPerformed
+        var frm = new JDMantenimientoCliente(this, true);
             frm.setLocationRelativeTo(this);
             frm.setVisible(true);
-    }//GEN-LAST:event_mnuConsultarProductosActionPerformed
+    }//GEN-LAST:event_mnuClientesActionPerformed
+
+    private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
+        var frm = new JDMantenimientoCliente(this, true);
+            frm.setLocationRelativeTo(this);
+            frm.setVisible(true);
+    }//GEN-LAST:event_btnClientesActionPerformed
 
     private class Reloj implements Runnable {
 
@@ -567,7 +589,6 @@ public class JFPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
@@ -584,6 +605,7 @@ public class JFPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JMenuItem mnuCambiarClave;
     private javax.swing.JMenuItem mnuCerrarSesion;
+    private javax.swing.JMenuItem mnuClientes;
     private javax.swing.JMenuItem mnuConsultarProductos;
     private javax.swing.JMenuItem mnuIniciarSesion;
     private javax.swing.JMenu mnuLogin;

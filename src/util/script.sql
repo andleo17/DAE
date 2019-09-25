@@ -1,44 +1,88 @@
 CREATE TABLE usuario (
-	id		INT			PRIMARY KEY,
-	usuario		VARCHAR(20)		NOT NULL UNIQUE,
-	clave		VARCHAR(20)		NOT NULL,
-	nombre		VARCHAR(60)		NOT NULL,
-	cargo		VARCHAR(30)		NULL,
-	estado		BOOLEAN			NOT NULL,
-        pregunta        VARCHAR(50)             NOT NULL,
-        respuesta       VARCHAR(50)             NOT NULL
+    id                  INT                 PRIMARY KEY,
+    usuario             VARCHAR(20)         NOT NULL UNIQUE,
+    clave               VARCHAR(20)         NOT NULL,
+    nombre              VARCHAR(60)         NOT NULL,
+    cargo               VARCHAR(30)         NULL,
+    estado              BOOLEAN             NOT NULL,
+    pregunta            VARCHAR(50)         NOT NULL,
+    respuesta           VARCHAR(50)         NOT NULL
 );
 
-CREATE TABLE marca(
-	id		INT			PRIMARY KEY,
-	nombre		VARCHAR(30)		NOT NULL,
-        vigencia        BOOLEAN                 NOT NULL
+CREATE TABLE marca (
+    id                  INT                 PRIMARY KEY,
+    nombre              VARCHAR(30)         NOT NULL,
+    vigencia            BOOLEAN             NOT NULL
 );
 
-CREATE TABLE categoria(
-	id		INT			PRIMARY KEY,
-	nombre		VARCHAR(30)		NOT NULL,
-	descripcion	VARCHAR(100)		NULL,
-	vigencia	BOOLEAN			NOT NULL
+CREATE TABLE categoria (
+    id                  INT                 PRIMARY KEY,
+    nombre              VARCHAR(30)         NOT NULL,
+    descripcion         VARCHAR(100)        NULL,
+    vigencia            BOOLEAN             NOT NULL
 );
 
-CREATE TABLE producto(
-	id		INT			PRIMARY KEY,
-	nombre		VARCHAR(30)		NOT NULL,
-	descripcion	VARCHAR(100)		NOT NULL,
-	precio		DECIMAL(8, 2)		NOT NULL,
-	stock		INT			NOT NULL,
-	vigencia	BOOLEAN			NOT NULL,
-	marca_id	INT			NOT NULL REFERENCES marca,
-	categoria_id	INT			NOT NULL REFERENCES categoria
+CREATE TABLE producto (
+    id                  INT                 PRIMARY KEY,
+    nombre              VARCHAR(30)         NOT NULL,
+    descripcion         VARCHAR(100)        NOT NULL,
+    precio              DECIMAL(8, 2)       NOT NULL,
+    stock               INT                 NOT NULL,
+    vigencia            BOOLEAN             NOT NULL,
+    marca_id            INT                 NOT NULL REFERENCES marca,
+    categoria_id        INT                 NOT NULL REFERENCES categoria
 );
 
-CREATE TABLE MOVIMIENTO (
-        id              SERIAL                  PRIMARY KEY,
-        id_usuario      INT                     NOT NULL REFERENCES usuario,
-        fecha           DATE                    NOT NULL DEFAULT CURRENT_DATE,
-        hora            TIME                    NOT NULL DEFAULT CURRENT_TIME,
-        estado          BOOLEAN                 NOT NULL
+CREATE TABLE movimiento (
+    id                  SERIAL              PRIMARY KEY,
+    id_usuario          INT                 NOT NULL REFERENCES usuario,
+    fecha               DATE                NOT NULL DEFAULT CURRENT_DATE,
+    hora                TIME                NOT NULL DEFAULT CURRENT_TIME,
+    estado              BOOLEAN             NOT NULL
+);
+
+CREATE TABLE tipo_cliente (
+    id                  INT                 PRIMARY KEY,
+    nombre              VARCHAR(30)         NOT NULL
+);
+
+INSERT INTO tipo_cliente VALUES (1, 'Persona Jurídica'),
+                                (2, 'Persona Natural'),
+                                (3, 'Persona Natural con RUC');
+
+CREATE TABLE cliente (
+    id                  INT                 PRIMARY KEY,
+    dni                 CHAR(8)             NULL,
+    ruc                 CHAR(11)            NULL,
+    nombres             VARCHAR(60)         NOT NULL,
+    telefono            VARCHAR(13)         NULL,
+    correo              VARCHAR(50)         NULL,
+    direccion           VARCHAR(70)         NOT NULL,
+    vigencia            BOOLEAN             NOT NULL,
+    tipo_cliente_id     INT                 NOT NULL REFERENCES tipo_cliente
+);
+
+CREATE TABLE venta (
+    id                  INT                 PRIMARY KEY,
+    fecha               DATE                NOT NULL,
+    subtotal            DECIMAL(10,2)       NULL,
+    igv                 DECIMAL(10,2)       NULL,
+    total               DECIMAL(10, 2)      NOT NULL,
+    tipo_comprobante    BOOLEAN             NOT NULL,
+    estado_pago         BOOLEAN             NOT NULL,
+    cliente_id          INT                 NOT NULL REFERENCES cliente
+);
+
+CREATE TABLE detalle_venta (
+    venta_id            INT                 NOT NULL REFERENCES venta,
+    producto_id         INT                 NOT NULL REFERENCES producto,
+    cantidad            INT                 NOT NULL,
+    precio              DECIMAL(8, 2)       NOT NULL,
+    descuento           SMALLINT            NOT NULL,
+    subtotal            DECIMAL(10, 2)      NOT NULL,
+
+    CONSTRAINT pk_detalle_venta
+        PRIMARY KEY (venta_id, producto_id)
 );
 
 INSERT INTO usuario VALUES  (1, 'admin', '123456', 'Juan Perez Perez', 'Gerente General', TRUE, 'Ciudad de nacimiento', 'Lima'),
