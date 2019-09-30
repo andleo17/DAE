@@ -46,4 +46,20 @@ public class TipoCliente implements IDBConnection {
         this.nombre = nombre;
     }
     
+    @Override
+    public String toString() {
+        return this.nombre;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null) return false;
+        
+        if (getClass() != object.getClass()) return false;
+        
+        var aux = (TipoCliente) object;
+        
+        return this.id == aux.id;
+    }
+    
 }

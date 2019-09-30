@@ -4,18 +4,17 @@ package capaCliente;
 import capaNegocio.Cliente;
 import capaNegocio.TipoCliente;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class JDMantenimientoCliente extends javax.swing.JDialog {
 
-    private DefaultComboBoxModel<TipoCliente> tiposCliente;
-    
     public JDMantenimientoCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        listar();
+        listarTiposCliente();
     }
 
     @SuppressWarnings("unchecked")
@@ -72,11 +71,6 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Mantenimiento de clientes");
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
-        });
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 102));
 
@@ -91,7 +85,7 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jLabel1)
-                .addContainerGap(659, Short.MAX_VALUE))
+                .addContainerGap(768, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,11 +194,6 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
         txtDNI.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtDNI.setBorder(null);
         txtDNI.setOpaque(false);
-        txtDNI.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtDNIKeyTyped(evt);
-            }
-        });
 
         jSeparator3.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
@@ -364,11 +353,6 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
         txtRUC.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtRUC.setBorder(null);
         txtRUC.setOpaque(false);
-        txtRUC.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtRUCKeyTyped(evt);
-            }
-        });
 
         jSeparator4.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
@@ -400,11 +384,6 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
         txtTelefono.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtTelefono.setBorder(null);
         txtTelefono.setOpaque(false);
-        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtTelefonoKeyTyped(evt);
-            }
-        });
 
         jSeparator5.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator5.setForeground(new java.awt.Color(0, 0, 0));
@@ -436,11 +415,6 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
         txtCorreo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtCorreo.setBorder(null);
         txtCorreo.setOpaque(false);
-        txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtCorreoKeyTyped(evt);
-            }
-        });
 
         jSeparator6.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator6.setForeground(new java.awt.Color(0, 0, 0));
@@ -614,14 +588,14 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
             } else {
                 var cliente = new Cliente();
                     cliente.setId(Integer.valueOf(txtCodigo.getText()));
-                    cliente.setTipoCliente(tiposCliente.get(cboTipoCliente.getSelectedIndex()));
-                    cliente.setNombre(txtNombres.getText());
-                    cliente.setDescripcion(txtDescripcion.getText());
-                    cliente.setPrecio(Float.valueOf(txtDNI.getText()));
-                    cliente.setStock((int) spnStock.getValue());
+                    cliente.setDni(txtDNI.getText());
+                    cliente.setRuc(txtRUC.getText());
+                    cliente.setNombres(txtNombres.getText());
+                    cliente.setTelefono(txtTelefono.getText());
+                    cliente.setCorreo(txtCorreo.getText());
+                    cliente.setDireccion(txtDireccion.getText());
                     cliente.setVigente(chkVigencia.isSelected());
-                    cliente.setMarca(tiposCliente.get(cboTipoCliente.getSelectedIndex()));
-                    cliente.setCategoria(categorias.get(cboCategoria.getSelectedIndex()));
+                    cliente.setTipoCliente((TipoCliente) cboTipoCliente.getSelectedItem());
                     
                 cliente.registrar();
                 limpiar();
@@ -639,14 +613,15 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
         if (!txtCodigo.getText().isEmpty()) {
             try {
                 var cliente = Cliente.buscar(Integer.valueOf(txtCodigo.getText()));
-                txtCodigo.setText(String.valueOf(cliente.getId()));
-                txtNombres.setText(cliente.getNombre());
-                txtDescripcion.setText(cliente.getDescripcion());
-                txtDNI.setText(String.valueOf(cliente.getPrecio()));
-                spnStock.setValue(cliente.getStock());
-                cboTipoCliente.setSelectedItem(cliente.getMarca().getNombre());
-                cboCategoria.setSelectedItem(cliente.getCategoria().getNombre());
-                chkVigencia.setSelected(cliente.isVigente());
+                    txtCodigo.setText(String.valueOf(cliente.getId()));
+                    txtDNI.setText(cliente.getDni());
+                    txtRUC.setText(cliente.getRuc());
+                    txtNombres.setText(cliente.getNombres());
+                    txtTelefono.setText(cliente.getTelefono());
+                    txtCorreo.setText(cliente.getCorreo());
+                    txtDireccion.setText(cliente.getDireccion());
+                    chkVigencia.setSelected(cliente.isVigente());
+                    cboTipoCliente.setSelectedItem(cliente.getTipoCliente());
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e.getMessage());
                 limpiar();
@@ -674,15 +649,15 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
             try {
                 var clienteAnterior = Cliente.buscar(Integer.valueOf(txtCodigo.getText()));
                 var clienteNuevo = new Cliente();
-                    clienteNuevo.setId(clienteAnterior.getId());
-                    clienteNuevo.setNombre(txtNombres.getText());
-                    clienteNuevo.setDescripcion(txtDescripcion.getText());
+                    clienteNuevo.setId(Integer.valueOf(txtCodigo.getText()));
+                    clienteNuevo.setDni(txtDNI.getText());
+                    clienteNuevo.setRuc(txtRUC.getText());
+                    clienteNuevo.setNombres(txtNombres.getText());
+                    clienteNuevo.setTelefono(txtTelefono.getText());
+                    clienteNuevo.setCorreo(txtCorreo.getText());
+                    clienteNuevo.setDireccion(txtDireccion.getText());
                     clienteNuevo.setVigente(chkVigencia.isSelected());
-                    clienteNuevo.setPrecio(Float.valueOf(txtDNI.getText()));
-                    clienteNuevo.setStock((int) spnStock.getValue());
-                    clienteNuevo.setVigente(chkVigencia.isSelected());
-                    clienteNuevo.setMarca(tiposCliente.get(cboTipoCliente.getSelectedIndex()));
-                    clienteNuevo.setCategoria(categorias.get(cboCategoria.getSelectedIndex()));
+                    clienteNuevo.setTipoCliente((TipoCliente) cboTipoCliente.getSelectedItem());
                     
                 clienteAnterior.modificar(clienteNuevo);
                 JOptionPane.showMessageDialog(this, "Registro modificado correctamente");
@@ -694,12 +669,6 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
         } else
             JOptionPane.showMessageDialog(this, "Ingrese un código");
     }//GEN-LAST:event_btnModificarActionPerformed
-
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        listar();
-        listarCategorias();
-        listarTiposCliente();
-    }//GEN-LAST:event_formWindowActivated
 
     private void btnDarBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarBajaActionPerformed
         if (!txtCodigo.getText().isEmpty()) {
@@ -729,32 +698,17 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
         if ('0' > evt.getKeyChar() || evt.getKeyChar() > '9') evt.consume();
     }//GEN-LAST:event_txtCodigoKeyTyped
 
-    private void txtDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDNIKeyTyped
-        if (('0' > evt.getKeyChar() || evt.getKeyChar() > '9') && evt.getKeyChar() != '.') evt.consume();
-    }//GEN-LAST:event_txtDNIKeyTyped
-
-    private void txtRUCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRUCKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtRUCKeyTyped
-
-    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTelefonoKeyTyped
-
-    private void txtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCorreoKeyTyped
-
     private void limpiar() {
         txtCodigo.setText("");
         txtCodigo.setEditable(true);
-        txtNombres.setText("");
-        txtDescripcion.setText("");
         txtDNI.setText("");
-        spnStock.setValue(0);
-        cboCategoria.setSelectedIndex(-1);
-        cboTipoCliente.setSelectedIndex(-1);
+        txtRUC.setText("");
+        txtNombres.setText("");
+        txtTelefono.setText("");
+        txtCorreo.setText("");
+        txtDireccion.setText("");
         chkVigencia.setSelected(false);
+        cboTipoCliente.setSelectedItem(null);
         btnNuevo.setText("Nuevo");
         txtCodigo.requestFocus();
         listar();
@@ -763,18 +717,19 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
     private void listar() {
         try {
             var model = new DefaultTableModel(new String[] {
-                "ID", "Nombre", "Descripcion", "Precio", "Stock", "Vigente", "Marca", "Categoria"
+                "ID", "Nombres", "DNI", "RUC", "Teléfono", "Correo", "Dirección", "Vigente", "Tipo Cliente"
             }, 0);
-            Cliente.listarTodo().forEach(p -> {
+            Cliente.listarTodo().forEach(c -> {
                 model.addRow(new Object[] {
-                    p.getId(),
-                    p.getNombre(),
-                    p.getDescripcion(),
-                    p.getPrecio(),
-                    p.getStock(),
-                    p.isVigente() ? "Sí" : "No",
-                    p.getMarca().getNombre(),
-                    p.getCategoria().getNombre()
+                    c.getId(),
+                    c.getNombres(),
+                    c.getDni(),
+                    c.getRuc(),
+                    c.getTelefono(),
+                    c.getCorreo(),
+                    c.getDireccion(),
+                    c.isVigente() ? "Sí" : "No",
+                    c.getTipoCliente().getNombre()
                 });
             });
             
@@ -786,11 +741,10 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
     
     private void listarTiposCliente() {
         try {
-            cboTipoCliente.removeAllItems();
-            tiposCliente = new DefaultComboBoxModel();
-            tiposCliente.addAll(TipoCliente.listarTodo());
-            cboTipoCliente.setModel(aModel);
-            cboTipoCliente.setSelectedIndex(-1);
+            var modelo = new DefaultComboBoxModel();
+            modelo.addAll(TipoCliente.listarTodo());
+            modelo.setSelectedItem(null);
+            cboTipoCliente.setModel(modelo);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
@@ -803,7 +757,7 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;
-    private javax.swing.JComboBox<String> cboTipoCliente;
+    private javax.swing.JComboBox<TipoCliente> cboTipoCliente;
     private javax.swing.JCheckBox chkVigencia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;

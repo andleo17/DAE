@@ -5,17 +5,22 @@ import capaNegocio.Categoria;
 import capaNegocio.Marca;
 import capaNegocio.Producto;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class JDConsultas extends javax.swing.JDialog {
 
-    ArrayList<Marca> marcas;
-    ArrayList<Categoria> categorias;
-    
     public JDConsultas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        try {
+            listar(Producto.listarTodo());
+            listarCategorias();
+            listarMarcas();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }
     
     @SuppressWarnings("unchecked")
@@ -38,13 +43,10 @@ public class JDConsultas extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDatos = new javax.swing.JTable();
         lblProductos = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
-        });
+        setTitle("Consultar Productos");
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
@@ -138,6 +140,7 @@ public class JDConsultas extends javax.swing.JDialog {
 
         cboCategoria.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cboCategoria.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        cboCategoria.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cboCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboCategoriaActionPerformed(evt);
@@ -177,6 +180,17 @@ public class JDConsultas extends javax.swing.JDialog {
         lblProductos.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblProductos.setText("Productos encontrados: 0");
 
+        jButton1.setBackground(new java.awt.Color(0, 153, 153));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Limpiar");
+        jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -186,16 +200,15 @@ public class JDConsultas extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lblProductos)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(34, 34, 34)
-                                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(35, 35, 35))))
+                        .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(34, 34, 34)
+                        .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(35, 35, 35))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,10 +220,12 @@ public class JDConsultas extends javax.swing.JDialog {
                     .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(lblProductos)
-                .addGap(17, 17, 17))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -231,16 +246,6 @@ public class JDConsultas extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        try {
-            listar(Producto.listarTodo());
-            listarCategorias();
-            listarMarcas();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
-    }//GEN-LAST:event_formWindowActivated
-
     private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
         filtrar();
     }//GEN-LAST:event_txtNombreKeyReleased
@@ -252,11 +257,17 @@ public class JDConsultas extends javax.swing.JDialog {
     private void cboMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboMarcaActionPerformed
         filtrar();
     }//GEN-LAST:event_cboMarcaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        txtNombre.setText("");
+        cboCategoria.setSelectedIndex(-1);
+        cboMarca.setSelectedIndex(-1);
+    }//GEN-LAST:event_jButton1ActionPerformed
     
     private void listar(ArrayList<Producto> productos) {
         try {
             var model = new DefaultTableModel(new String[] {
-                "ID", "Nombre", "Descripcion", "Precio", "Stock", "Vigente"//, "Marca", "Categoria"
+                "ID", "Nombre", "Descripcion", "Precio", "Stock", "Vigente", "Marca", "Categoria"
             }, 0);
             productos.forEach(p -> {
                 model.addRow(new Object[] {
@@ -266,8 +277,8 @@ public class JDConsultas extends javax.swing.JDialog {
                     p.getPrecio(),
                     p.getStock(),
                     p.isVigente() ? "Sí" : "No",
-                    //p.getMarca().getNombre(),
-                    //p.getCategoria().getNombre()
+                    p.getMarca().toString(),
+                    p.getCategoria().toString()
                 });
             });
             
@@ -280,10 +291,10 @@ public class JDConsultas extends javax.swing.JDialog {
     
     private void listarCategorias() {
         try {
-            cboCategoria.removeAllItems();
-            categorias = Categoria.listarTodo();
-            categorias.forEach(c -> cboCategoria.addItem(c.getNombre()));
-            cboCategoria.setSelectedIndex(-1);
+            var modelo = new DefaultComboBoxModel<Categoria>();
+            modelo.addAll(Categoria.listarTodo());
+            modelo.setSelectedItem(null);
+            cboCategoria.setModel(modelo);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
@@ -291,10 +302,10 @@ public class JDConsultas extends javax.swing.JDialog {
     
     private void listarMarcas() {
         try {
-            cboMarca.removeAllItems();
-            marcas = Marca.listarTodo();
-            marcas.forEach(m -> cboMarca.addItem(m.getNombre()));
-            cboMarca.setSelectedIndex(-1);
+            var modelo = new DefaultComboBoxModel<Marca>();
+            modelo.addAll(Marca.listarTodo());
+            modelo.setSelectedItem(null);
+            cboMarca.setModel(modelo);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
@@ -302,9 +313,9 @@ public class JDConsultas extends javax.swing.JDialog {
     
     private void filtrar() {
         try {
-            var marca = cboMarca.getSelectedIndex() == -1 ? cboMarca.getSelectedIndex() : marcas.get(cboMarca.getSelectedIndex()).getId();
-            var categoria = cboCategoria.getSelectedIndex() == -1 ? cboCategoria.getSelectedIndex() : categorias.get(cboCategoria.getSelectedIndex()).getId();
-            var productos = Producto.filtrarProductos(txtNombre.getText(), marca, categoria);
+            var marca = (Marca) cboMarca.getSelectedItem();
+            var categoria = (Categoria) cboCategoria.getSelectedItem();
+            var productos = Producto.filtrarProductos(txtNombre.getText(), categoria, marca);
             listar(productos);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
@@ -312,8 +323,9 @@ public class JDConsultas extends javax.swing.JDialog {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cboCategoria;
-    private javax.swing.JComboBox<String> cboMarca;
+    private javax.swing.JComboBox<Categoria> cboCategoria;
+    private javax.swing.JComboBox<Marca> cboMarca;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

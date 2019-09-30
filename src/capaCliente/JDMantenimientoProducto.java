@@ -5,18 +5,18 @@ import capaNegocio.Categoria;
 import capaNegocio.Marca;
 import capaNegocio.Producto;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class JDMantenimientoProducto extends javax.swing.JDialog {
-
-    private ArrayList<Marca> marcas;
-    private ArrayList<Categoria> categorias;
     
     public JDMantenimientoProducto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        listar();
+        listarCategorias();
+        listarMarcas();
     }
 
     @SuppressWarnings("unchecked")
@@ -304,7 +304,8 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
         cboMarca.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         btnAgregarMarca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/agregar.png"))); // NOI18N
-        btnAgregarMarca.setBorder(null);
+        btnAgregarMarca.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnAgregarMarca.setOpaque(false);
         btnAgregarMarca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarMarcaActionPerformed(evt);
@@ -445,7 +446,8 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
         cboCategoria.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         btnAgregarCategoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/agregar.png"))); // NOI18N
-        btnAgregarCategoria.setBorder(null);
+        btnAgregarCategoria.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnAgregarCategoria.setOpaque(false);
         btnAgregarCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarCategoriaActionPerformed(evt);
@@ -556,8 +558,8 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
                     producto.setPrecio(Float.valueOf(txtPrecio.getText()));
                     producto.setStock((int) spnStock.getValue());
                     producto.setVigente(chkVigencia.isSelected());
-                    producto.setMarca(marcas.get(cboMarca.getSelectedIndex()));
-                    producto.setCategoria(categorias.get(cboCategoria.getSelectedIndex()));
+                    producto.setMarca((Marca) cboMarca.getSelectedItem());
+                    producto.setCategoria((Categoria) cboCategoria.getSelectedItem());
                     
                 producto.registrar();
                 limpiar();
@@ -580,8 +582,8 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
                 txtDescripcion.setText(producto.getDescripcion());
                 txtPrecio.setText(String.valueOf(producto.getPrecio()));
                 spnStock.setValue(producto.getStock());
-                cboMarca.setSelectedItem(producto.getMarca().getNombre());
-                cboCategoria.setSelectedItem(producto.getCategoria().getNombre());
+                cboMarca.setSelectedItem(producto.getMarca());
+                cboCategoria.setSelectedItem(producto.getCategoria());
                 chkVigencia.setSelected(producto.isVigente());
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e.getMessage());
@@ -617,8 +619,8 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
                     productoNuevo.setPrecio(Float.valueOf(txtPrecio.getText()));
                     productoNuevo.setStock((int) spnStock.getValue());
                     productoNuevo.setVigente(chkVigencia.isSelected());
-                    productoNuevo.setMarca(marcas.get(cboMarca.getSelectedIndex()));
-                    productoNuevo.setCategoria(categorias.get(cboCategoria.getSelectedIndex()));
+                    productoNuevo.setMarca((Marca) cboMarca.getSelectedItem());
+                    productoNuevo.setCategoria((Categoria) cboCategoria.getSelectedItem());
                     
                 productoAnterior.modificar(productoNuevo);
                 JOptionPane.showMessageDialog(this, "Registro modificado correctamente");
@@ -632,9 +634,7 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        listar();
-        listarCategorias();
-        listarMarcas();
+        
     }//GEN-LAST:event_formWindowActivated
 
     private void btnDarBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarBajaActionPerformed
@@ -722,10 +722,10 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
     
     private void listarCategorias() {
         try {
-            cboCategoria.removeAllItems();
-            categorias = Categoria.listarTodo();
-            categorias.forEach(c -> cboCategoria.addItem(c.getNombre()));
-            cboCategoria.setSelectedIndex(-1);
+            var modelo = new DefaultComboBoxModel<Categoria>();
+            modelo.addAll(Categoria.listarTodo());
+            modelo.setSelectedItem(null);
+            cboCategoria.setModel(modelo);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
@@ -733,10 +733,10 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
     
     private void listarMarcas() {
         try {
-            cboMarca.removeAllItems();
-            marcas = Marca.listarTodo();
-            marcas.forEach(m -> cboMarca.addItem(m.getNombre()));
-            cboMarca.setSelectedIndex(-1);
+            var modelo = new DefaultComboBoxModel<Marca>();
+            modelo.addAll(Marca.listarTodo());
+            modelo.setSelectedItem(null);
+            cboMarca.setModel(modelo);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
@@ -751,8 +751,8 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;
-    private javax.swing.JComboBox<String> cboCategoria;
-    private javax.swing.JComboBox<String> cboMarca;
+    private javax.swing.JComboBox<Categoria> cboCategoria;
+    private javax.swing.JComboBox<Marca> cboMarca;
     private javax.swing.JCheckBox chkVigencia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

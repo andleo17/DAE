@@ -68,7 +68,7 @@ public class Producto implements IDBConnection {
                     producto.setVigente(resultSet.getBoolean(6));
                     
                 var marca = new Marca();
-                    marca.setId(9);
+                    marca.setId(resultSet.getInt(9));
                     marca.setNombre(resultSet.getString(10));
                     marca.setVigente(resultSet.getBoolean(11));
                     producto.setMarca(marca);
@@ -174,16 +174,39 @@ public class Producto implements IDBConnection {
         }
     }
     
-    public static ArrayList<Producto> filtrarProductos(String nombre, int categoria, int marca) throws Exception{
+    public static ArrayList<Producto> filtrarProductos(String nombre, Categoria categoria, Marca marca) throws Exception {
         try (var connection = conectarBD()) {
             var productos = new ArrayList<Producto>();
-            var query = "SELECT * FROM producto WHERE nombre LIKE '%" + nombre + "%' AND " +
-                    (categoria == -1 ? "TRUE" : "categoria_id = "+ categoria)
-                    + " AND " +
-                    (marca == -1 ? "TRUE" : "marca_id = " + marca)
-                    + ";";
+            var query = "SELECT * FROM producto "
+                        + "INNER JOIN marca ON producto.marca_id = marca.id "
+                        + "INNER JOIN categoria ON producto.categoria_id = categoria.id WHERE "
+                        + "producto.nombre LIKE ? AND "
+                        + "(? IS NULL OR categoria_id = ? :: int) AND "
+                        + "(? IS NULL OR marca_id = ? :: int) "
+                        + "ORDER BY 1;";
             
-            var resultSet = connection.createStatement().executeQuery(query);
+            var prepareStatement = connection.prepareStatement(query);
+                prepareStatement.setString(1, nombre + '%');
+
+                if (categoria == null) {
+                    prepareStatement.setString(2, null);
+                    prepareStatement.setString(3, null);
+                }
+                else {
+                    prepareStatement.setInt(2, categoria.getId());
+                    prepareStatement.setInt(3, categoria.getId());
+                }
+                
+                if (marca == null) {
+                    prepareStatement.setString(4, null);
+                    prepareStatement.setString(5, null);
+                }
+                else {
+                    prepareStatement.setInt(4, marca.getId());
+                    prepareStatement.setInt(5, marca.getId());
+                }
+                
+            var resultSet = prepareStatement.executeQuery();
             while (resultSet.next()) {
                 var producto = new Producto();
                     producto.setId(resultSet.getInt(1));
@@ -192,6 +215,19 @@ public class Producto implements IDBConnection {
                     producto.setPrecio(resultSet.getFloat(4));
                     producto.setStock(resultSet.getInt(5));
                     producto.setVigente(resultSet.getBoolean(6));
+                    
+                var m = new Marca();
+                    m.setId(resultSet.getInt(9));
+                    m.setNombre(resultSet.getString(10));
+                    m.setVigente(resultSet.getBoolean(11));
+                    producto.setMarca(m);
+                    
+                var c = new Categoria();
+                    c.setId(resultSet.getInt(12));
+                    c.setNombre(resultSet.getString(13));
+                    c.setDescripcion(resultSet.getString(14));
+                    c.setVigente(resultSet.getBoolean(15));
+                    producto.setCategoria(c);
                     
                 productos.add(producto);
             }
@@ -263,6 +299,11 @@ public class Producto implements IDBConnection {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+    
+    @Override
+    public String toString() {
+        return this.nombre;
     }
     
 }

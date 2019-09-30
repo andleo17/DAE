@@ -355,4 +355,9 @@ public class Usuario implements IDBConnection {
         this.respuesta = respuesta;
     }
     
+    @Override
+    public String toString() {
+        return this.nombre;
+    }
+    
 }

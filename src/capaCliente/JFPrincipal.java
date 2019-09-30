@@ -487,15 +487,15 @@ public class JFPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuUsuariosActionPerformed
 
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
-//        var frm = new JDConsultas(this, true);
-//            frm.setLocationRelativeTo(this);
-//            frm.setVisible(true);
+        var frm = new JDConsultas(this, true);
+            frm.setLocationRelativeTo(this);
+            frm.setVisible(true);
     }//GEN-LAST:event_btnProductosActionPerformed
 
     private void mnuConsultarProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuConsultarProductosActionPerformed
-//        var frm = new JDConsultas(this, true);
-//            frm.setLocationRelativeTo(this);
-//            frm.setVisible(true);
+        var frm = new JDConsultas(this, true);
+            frm.setLocationRelativeTo(this);
+            frm.setVisible(true);
     }//GEN-LAST:event_mnuConsultarProductosActionPerformed
 
     private void mnuClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuClientesActionPerformed

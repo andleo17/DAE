@@ -140,4 +140,20 @@ public class Marca implements IDBConnection {
         this.vigente = vigente;
     }
     
+    @Override
+    public String toString() {
+        return this.nombre;
+    }
+    
+    @Override
+    public boolean equals(Object object) {
+        if (object == null) return false;
+        
+        if (getClass() != object.getClass()) return false;
+        
+        var aux = (Marca) object;
+        
+        return this.id == aux.id;
+    }
+    
 }
