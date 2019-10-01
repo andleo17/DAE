@@ -82,6 +82,41 @@ public class Cliente implements IDBConnection {
         }
     }
     
+    public static Cliente buscar(String numeroDocumento) throws Exception {
+        try (var connection = conectarBD()) {
+            var query = "SELECT * FROM cliente "
+                    + "INNER JOIN tipo_cliente ON cliente.tipo_cliente_id = tipo_cliente.id "
+                    + "WHERE cliente.dni = ? OR cliente.ruc = ?;";
+            
+            var prepareStatement = connection.prepareStatement(query);
+                prepareStatement.setString(1, numeroDocumento);
+                prepareStatement.setString(2, numeroDocumento);
+                
+            var resultSet = prepareStatement.executeQuery();
+            if (resultSet.next()) {
+                var cliente = new Cliente();
+                    cliente.setId(resultSet.getInt(1));
+                    cliente.setDni(resultSet.getString(2));
+                    cliente.setRuc(resultSet.getString(3));
+                    cliente.setNombres(resultSet.getString(4));
+                    cliente.setTelefono(resultSet.getString(5));
+                    cliente.setCorreo(resultSet.getString(6));
+                    cliente.setDireccion(resultSet.getString(7));
+                    cliente.setVigente(resultSet.getBoolean(8));
+                
+                var tipoCliente = new TipoCliente();
+                    tipoCliente.setId(resultSet.getInt(10));
+                    tipoCliente.setNombre(resultSet.getString(11));
+                    
+                cliente.setTipoCliente(tipoCliente);
+                return cliente;
+            } else
+                throw new Exception("No se encontró el cliente");
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
     public static void eliminar(int codigo) throws Exception {
         try (var connection = conectarBD()) {
             var query = "DELETE FROM cliente WHERE id = ?;";

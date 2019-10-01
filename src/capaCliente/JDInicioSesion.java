@@ -225,7 +225,7 @@ public class JDInicioSesion extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(this, "Usuario caducado");
             } else {
                 JOptionPane.showMessageDialog(this, "Usuario y/o contraseña incorrectos");
-                txtClave.setText("");
+                txtClave.setText(null);
                 txtClave.requestFocus();
                 if (++numeroIntentos == 3) {
                     JOptionPane.showMessageDialog(this, "Superó el número de intentos permitidos, por favor conteste su pregunta secreta");

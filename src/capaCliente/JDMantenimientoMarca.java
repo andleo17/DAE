@@ -11,6 +11,7 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
     public JDMantenimientoMarca(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        limpiar();
     }
 
     @SuppressWarnings("unchecked")
@@ -430,9 +431,9 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
     }//GEN-LAST:event_txtCodigoKeyTyped
 
     private void limpiar() {
-        txtCodigo.setText("");
+        txtCodigo.setText(null);
         txtCodigo.setEditable(true);
-        txtNombre.setText("");
+        txtNombre.setText(null);
         chkVigencia.setSelected(false);
         btnNuevo.setText("Nuevo");
         txtCodigo.requestFocus();

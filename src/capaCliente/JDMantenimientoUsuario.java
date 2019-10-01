@@ -11,6 +11,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
     public JDMantenimientoUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        limpiar();
     }
 
     @SuppressWarnings("unchecked")
@@ -654,14 +655,14 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
     }//GEN-LAST:event_txtCodigoKeyTyped
 
     private void limpiar() {
-        txtCodigo.setText("");
+        txtCodigo.setText(null);
         txtCodigo.setEditable(true);
-        txtUsuario.setText("");
-        txtClave.setText("");
-        txtNombre.setText("");
-        txtCargo.setText("");
-        txtPregunta.setText("");
-        txtRespuesta.setText("");
+        txtUsuario.setText(null);
+        txtClave.setText(null);
+        txtNombre.setText(null);
+        txtCargo.setText(null);
+        txtPregunta.setText(null);
+        txtRespuesta.setText(null);
         chkVigencia.setSelected(false);
         btnNuevo.setText("Nuevo");
         txtCodigo.requestFocus();

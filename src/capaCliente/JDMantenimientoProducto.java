@@ -14,9 +14,7 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
     public JDMantenimientoProducto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        listar();
-        listarCategorias();
-        listarMarcas();
+        limpiar();
     }
 
     @SuppressWarnings("unchecked")
@@ -634,7 +632,9 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        
+        listar();
+        listarCategorias();
+        listarMarcas();
     }//GEN-LAST:event_formWindowActivated
 
     private void btnDarBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarBajaActionPerformed
@@ -682,11 +682,11 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAgregarCategoriaActionPerformed
 
     private void limpiar() {
-        txtCodigo.setText("");
+        txtCodigo.setText(null);
         txtCodigo.setEditable(true);
-        txtNombre.setText("");
-        txtDescripcion.setText("");
-        txtPrecio.setText("");
+        txtNombre.setText(null);
+        txtDescripcion.setText(null);
+        txtPrecio.setText(null);
         spnStock.setValue(0);
         cboCategoria.setSelectedIndex(-1);
         cboMarca.setSelectedIndex(-1);

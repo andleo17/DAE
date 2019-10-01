@@ -11,8 +11,8 @@ public interface IDBConnection {
     String PORT = "5432";
     String URL = String.format("jdbc:postgresql://%s:%s/%s", HOST, PORT, DATABASE);
     String USER = "postgres";
-    //String PASSWORD = "USAT2019";
-    String PASSWORD = "123456789";
+    String PASSWORD = "USAT2019";
+    //String PASSWORD = "123456789";
     
     static Connection conectarBD() throws Exception {
         Class.forName(DRIVER);

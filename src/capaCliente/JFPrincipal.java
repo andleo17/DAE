@@ -130,6 +130,11 @@ public class JFPrincipal extends javax.swing.JFrame {
         btnVentas.setMinimumSize(new java.awt.Dimension(70, 75));
         btnVentas.setPreferredSize(new java.awt.Dimension(70, 75));
         btnVentas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnVentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVentasActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btnVentas);
 
         btnClientes.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -399,6 +404,11 @@ public class JFPrincipal extends javax.swing.JFrame {
         mnuVentas.add(mnuClientes);
 
         jMenuItem9.setText("Venta");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
         mnuVentas.add(jMenuItem9);
 
         jMenuItem10.setText("Pago");
@@ -509,6 +519,18 @@ public class JFPrincipal extends javax.swing.JFrame {
             frm.setLocationRelativeTo(this);
             frm.setVisible(true);
     }//GEN-LAST:event_btnClientesActionPerformed
+
+    private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
+        var frm = new JDVentas(this, true);
+            frm.setLocationRelativeTo(this);
+            frm.setVisible(true);
+    }//GEN-LAST:event_btnVentasActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        var frm = new JDVentas(this, true);
+            frm.setLocationRelativeTo(this);
+            frm.setVisible(true);
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private class Reloj implements Runnable {
 

@@ -13,8 +13,7 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
     public JDMantenimientoCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        listar();
-        listarTiposCliente();
+        limpiar();
     }
 
     @SuppressWarnings("unchecked")
@@ -35,7 +34,7 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
         jPanel5 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         chkVigencia = new javax.swing.JCheckBox();
-        jPanel7 = new javax.swing.JPanel();
+        pnlDNI = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         txtDNI = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
@@ -49,7 +48,7 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
         btnModificar = new javax.swing.JButton();
         btnDarBaja = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
-        jPanel8 = new javax.swing.JPanel();
+        pnlRUC = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         txtRUC = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
@@ -71,6 +70,11 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Mantenimiento de clientes");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 102));
 
@@ -199,19 +203,19 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator3.setOpaque(true);
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlDNILayout = new javax.swing.GroupLayout(pnlDNI);
+        pnlDNI.setLayout(pnlDNILayout);
+        pnlDNILayout.setHorizontalGroup(
+            pnlDNILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(txtDNI)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+            .addGroup(pnlDNILayout.createSequentialGroup()
                 .addComponent(jLabel6)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jSeparator3)
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        pnlDNILayout.setVerticalGroup(
+            pnlDNILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDNILayout.createSequentialGroup()
                 .addComponent(jLabel6)
                 .addGap(2, 2, 2)
                 .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,6 +228,11 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
 
         cboTipoCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cboTipoCliente.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        cboTipoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTipoClienteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -358,19 +367,19 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
         jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator4.setOpaque(true);
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlRUCLayout = new javax.swing.GroupLayout(pnlRUC);
+        pnlRUC.setLayout(pnlRUCLayout);
+        pnlRUCLayout.setHorizontalGroup(
+            pnlRUCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(txtRUC)
-            .addGroup(jPanel8Layout.createSequentialGroup()
+            .addGroup(pnlRUCLayout.createSequentialGroup()
                 .addComponent(jLabel7)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jSeparator4)
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
+        pnlRUCLayout.setVerticalGroup(
+            pnlRUCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlRUCLayout.createSequentialGroup()
                 .addComponent(jLabel7)
                 .addGap(2, 2, 2)
                 .addComponent(txtRUC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -484,12 +493,12 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(pnlDNI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(50, 50, 50)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(pnlRUC, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(30, 30, 30))
@@ -503,8 +512,8 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pnlDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlRUC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -561,7 +570,7 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -698,9 +707,38 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
         if ('0' > evt.getKeyChar() || evt.getKeyChar() > '9') evt.consume();
     }//GEN-LAST:event_txtCodigoKeyTyped
 
+    private void cboTipoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTipoClienteActionPerformed
+        var tipoCliente = (TipoCliente) cboTipoCliente.getSelectedItem();
+        if (tipoCliente != null) {
+            switch (tipoCliente.getId()) {
+                case 1:
+                    pnlRUC.setVisible(true);
+                    pnlDNI.setVisible(false);
+                    break;
+                case 2:
+                    pnlRUC.setVisible(false);
+                    pnlDNI.setVisible(true);
+                    break;
+                case 3:
+                    pnlRUC.setVisible(true);
+                    pnlDNI.setVisible(true);
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(this, "No sé qué estás seleccionando");
+            }
+        }
+    }//GEN-LAST:event_cboTipoClienteActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        listar();
+        listarTiposCliente();
+    }//GEN-LAST:event_formWindowActivated
+
     private void limpiar() {
         txtCodigo.setText("");
         txtCodigo.setEditable(true);
+        pnlRUC.setVisible(false);
+        pnlDNI.setVisible(false);
         txtDNI.setText("");
         txtRUC.setText("");
         txtNombres.setText("");
@@ -779,8 +817,6 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
@@ -790,6 +826,8 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JPanel pnlDNI;
+    private javax.swing.JPanel pnlRUC;
     private javax.swing.JTable tblDatos;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtCorreo;
