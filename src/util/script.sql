@@ -132,5 +132,3 @@ $$
 LANGUAGE 'plpgsql';
 
 CREATE TRIGGER tg_cambiarEstadoMovimiento AFTER INSERT ON movimiento FOR EACH ROW EXECUTE PROCEDURE fn_tg_cambiarEstadoMovimiento();
-
-SELECT * FROM cliente

@@ -144,8 +144,8 @@ public class Cliente implements IDBConnection {
                 prepareStatement.setString(5, cliente.getCorreo());
                 prepareStatement.setString(6, cliente.getDireccion());
                 prepareStatement.setBoolean(7, cliente.isVigente());
-                prepareStatement.setInt(7, cliente.getTipoCliente().getId());
-                prepareStatement.setInt(8, this.id);
+                prepareStatement.setInt(8, cliente.getTipoCliente().getId());
+                prepareStatement.setInt(9, this.id);
                 
             prepareStatement.executeUpdate();
         } catch (Exception e) {

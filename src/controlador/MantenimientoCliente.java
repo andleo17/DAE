@@ -33,6 +33,8 @@ public class MantenimientoCliente extends JDMantenimientoCliente {
         btnDarBaja.addActionListener(evt -> darBaja());
         btnLimpiar.addActionListener(evt -> limpiar());
         
+        cboTipoCliente.addActionListener(evt -> alternarTiposCliente());
+        
         tblDatos.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
@@ -90,11 +92,11 @@ public class MantenimientoCliente extends JDMantenimientoCliente {
             try {
                 var cliente = Cliente.buscar(Integer.valueOf(txtCodigo.getText()));
                     txtCodigo.setText(String.valueOf(cliente.getId()));
-                    txtDNI.setText(cliente.getDni());
-                    txtRUC.setText(cliente.getRuc());
+                    txtDNI.setText(comprobarVacio(cliente.getDni()));
+                    txtRUC.setText(comprobarVacio(cliente.getRuc()));
                     txtNombres.setText(cliente.getNombres());
-                    txtTelefono.setText(cliente.getTelefono());
-                    txtCorreo.setText(cliente.getCorreo());
+                    txtTelefono.setText(comprobarVacio(cliente.getTelefono()));
+                    txtCorreo.setText(comprobarVacio(cliente.getCorreo()));
                     txtDireccion.setText(cliente.getDireccion());
                     chkVigencia.setSelected(cliente.isVigente());
                     cboTipoCliente.setSelectedItem(cliente.getTipoCliente());
@@ -135,11 +137,11 @@ public class MantenimientoCliente extends JDMantenimientoCliente {
                 var clienteAnterior = Cliente.buscar(Integer.valueOf(txtCodigo.getText()));
                 var clienteNuevo = new Cliente();
                     clienteNuevo.setId(Integer.valueOf(txtCodigo.getText()));
-                    clienteNuevo.setDni(txtDNI.getText());
-                    clienteNuevo.setRuc(txtRUC.getText());
+                    clienteNuevo.setDni(comprobarVacio(txtDNI.getText()));
+                    clienteNuevo.setRuc(comprobarVacio(txtRUC.getText()));
                     clienteNuevo.setNombres(txtNombres.getText());
-                    clienteNuevo.setTelefono(txtTelefono.getText());
-                    clienteNuevo.setCorreo(txtCorreo.getText());
+                    clienteNuevo.setTelefono(comprobarVacio(txtTelefono.getText()));
+                    clienteNuevo.setCorreo(comprobarVacio(txtCorreo.getText()));
                     clienteNuevo.setDireccion(txtDireccion.getText());
                     clienteNuevo.setVigente(chkVigencia.isSelected());
                     clienteNuevo.setTipoCliente((TipoCliente) cboTipoCliente.getSelectedItem());
@@ -200,16 +202,16 @@ public class MantenimientoCliente extends JDMantenimientoCliente {
     }
     
     private void limpiar() {
-        txtCodigo.setText("");
+        txtCodigo.setText(null);
         txtCodigo.setEditable(true);
         pnlRUC.setVisible(false);
         pnlDNI.setVisible(false);
-        txtDNI.setText("");
-        txtRUC.setText("");
-        txtNombres.setText("");
-        txtTelefono.setText("");
-        txtCorreo.setText("");
-        txtDireccion.setText("");
+        txtDNI.setText(null);
+        txtRUC.setText(null);
+        txtNombres.setText(null);
+        txtTelefono.setText(null);
+        txtCorreo.setText(null);
+        txtDireccion.setText(null);
         chkVigencia.setSelected(false);
         cboTipoCliente.setSelectedItem(null);
         btnNuevo.setText("Nuevo");
@@ -251,6 +253,11 @@ public class MantenimientoCliente extends JDMantenimientoCliente {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
+    }
+    
+    private String comprobarVacio(String texto) {
+        if (!texto.isBlank()) return texto;
+        return null;
     }
     
 }

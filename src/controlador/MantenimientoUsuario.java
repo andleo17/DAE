@@ -68,7 +68,7 @@ public class MantenimientoUsuario extends JDMantenimientoUsuario {
                     usuario.setUsuario(txtUsuario.getText());
                     usuario.setClave(txtClave.getText());
                     usuario.setNombre(txtNombre.getText());
-                    usuario.setCargo(txtCargo.getText());
+                    usuario.setCargo(comprobarVacio(txtCargo.getText()));
                     usuario.setEstado(chkVigencia.isSelected());
                     usuario.setPregunta(txtPregunta.getText());
                     usuario.setRespuesta(txtRespuesta.getText());
@@ -133,7 +133,7 @@ public class MantenimientoUsuario extends JDMantenimientoUsuario {
                     usuarioNuevo.setUsuario(txtUsuario.getText());
                     usuarioNuevo.setClave(txtClave.getText());
                     usuarioNuevo.setNombre(txtNombre.getText());
-                    usuarioNuevo.setCargo(txtCargo.getText());
+                    usuarioNuevo.setCargo(comprobarVacio(txtCargo.getText()));
                     usuarioNuevo.setEstado(chkVigencia.isSelected());
                     usuarioNuevo.setPregunta(txtPregunta.getText());
                     usuarioNuevo.setRespuesta(txtRespuesta.getText());
@@ -208,6 +208,11 @@ public class MantenimientoUsuario extends JDMantenimientoUsuario {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
+    }
+    
+    private String comprobarVacio(String texto) {
+        if (!texto.isBlank()) return texto;
+        return null;
     }
     
 }

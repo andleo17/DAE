@@ -66,7 +66,7 @@ public class MantenimientoCategoria extends JDMantenimientoCategoria {
                 var categoria = new Categoria();
                     categoria.setId(Integer.valueOf(txtCodigo.getText()));
                     categoria.setNombre(txtNombre.getText());
-                    categoria.setDescripcion(txtDescripcion.getText());
+                    categoria.setDescripcion(comprobarVacio(txtDescripcion.getText()));
                     categoria.setVigente(chkVigencia.isSelected());
                     
                 categoria.registrar();
@@ -123,7 +123,7 @@ public class MantenimientoCategoria extends JDMantenimientoCategoria {
                 var categoriaNueva = new Categoria();
                     categoriaNueva.setId(categoriaAnterior.getId());
                     categoriaNueva.setNombre(txtNombre.getText());
-                    categoriaNueva.setDescripcion(txtDescripcion.getText());
+                    categoriaNueva.setDescripcion(comprobarVacio(txtDescripcion.getText()));
                     categoriaNueva.setVigente(chkVigencia.isSelected());
                     
                 categoriaAnterior.modificar(categoriaNueva);
@@ -186,6 +186,11 @@ public class MantenimientoCategoria extends JDMantenimientoCategoria {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
+    }
+    
+    private String comprobarVacio(String texto) {
+        if (!texto.isBlank()) return texto;
+        return null;
     }
     
 }
